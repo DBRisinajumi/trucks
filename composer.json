@@ -1,0 +1,16 @@
+{
+    "name": "dbrisinajumi/trucks",
+    "description": "Trucks registry",
+    "keywords": ["trucks","registry","yii","phundament"],
+    "type": "yii-extension",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Uldis Nelsons",
+            "email": "uldisnelsons@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    }
+}
