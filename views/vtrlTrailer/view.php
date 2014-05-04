@@ -6,17 +6,27 @@
         . ': '   
         . $model->getItemLabel()            
 );    
+
+$cancel_button = $this->widget("bootstrap.widgets.TbButton", array(
+                       "icon"=>"chevron-left",
+                       "size"=>"large",
+                       "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
+                       "visible"=>(Yii::app()->user->checkAccess("Trucks.VtrlTrailer.*") || Yii::app()->user->checkAccess("Trucks.VtrlTrailer.View")),
+                       "htmlOptions"=>array(
+                                       "class"=>"search-button",
+                                       "data-toggle"=>"tooltip",
+                                       "title"=>Yii::t("TrucksModule.crud","Cancel"),
+                                   )
+                    ),TRUE);
+    
 ?>
     <h1>
+        <?php echo $cancel_button?>
         <?php echo Yii::t('TrucksModule.model','Vtrl Trailer')?>
     </h1>
 
-
-
-<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
-
 <div class="row">
-    <div class="span12">
+    <div class="span4">
 
         <?php
         $this->widget(
@@ -94,20 +104,13 @@
         )); ?>
     </div>
 
-    </div>
-    <div class="row">
-    <?php 
-    if(false){
-?>    
-    <div class="span12">
-        <div class="well">
-            <?php $this->renderPartial('_view-relations',array('model' => $model)); ?>        </div>
+
+
+    <div class="span8">
         <div class="well">
             <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model)); ?>        </div>
     </div>
-    <?php    
-    }
-    ?>
+
 </div>
 
-<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+<?php echo $cancel_button?>

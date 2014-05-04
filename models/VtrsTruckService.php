@@ -1,10 +1,10 @@
 <?php
 
 // auto-loading
-Yii::setPathOfAlias('VtdcTruckDoc', dirname(__FILE__));
-Yii::import('VtdcTruckDoc.*');
+Yii::setPathOfAlias('VtrsTruckService', dirname(__FILE__));
+Yii::import('VtrsTruckService.*');
 
-class VtdcTruckDoc extends BaseVtdcTruckDoc
+class VtrsTruckService extends BaseVtrsTruckService
 {
 
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
@@ -51,24 +51,5 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
             'criteria' => $this->searchCriteria($criteria),
         ));
     }
-    
-    public function save($runValidation = true, $attributes = NULL) 
-    {
-        if(empty($attributes)){
-            $attributes = array();
-        }
-        $attributes[] = 'vtdc_updated';
-        $this->vtdc_updated = date('Y-m-d');
-
-        return parent::save($runValidation,$attributes);
-
-    }    
-
-    public function delete() 
-    {
-        $this->vtdc_deleted = 1;
-        return parent::save();
-
-    }    
 
 }

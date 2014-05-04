@@ -21,14 +21,18 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 
     <h1>
-
-        <?php echo Yii::t('TrucksModule.model', 'Vtrl Trailers'); ?>
-        <small><?php echo Yii::t('TrucksModule.crud', 'Manage'); ?></small>
-
+        <?php $this->widget("bootstrap.widgets.TbButton", array(
+                        "label"=>Yii::t("TrucksModule.crud","Create"),
+                        "icon"=>"icon-plus",
+                        "size"=>"large",
+                        "type"=>"success",
+                        "url"=>array("create"),
+                        "visible"=>(Yii::app()->user->checkAccess("Trucks.VtrlTrailer.*") || Yii::app()->user->checkAccess("Trucks.VtrlTrailer.Create"))
+                   ));
+;?>
+        <?php echo Yii::t('TrucksModule.model', 'Vtrl Trailers Manage'); ?>
     </h1>
 
-
-<?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
 <?php Yii::beginProfile('VtrlTrailer.view.grid'); ?>
 
 

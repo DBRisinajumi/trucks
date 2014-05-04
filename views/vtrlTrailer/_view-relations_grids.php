@@ -1,16 +1,10 @@
 
-<!--
-<h2>
-    <?php echo Yii::t('TrucksModule.crud', 'Relations') ?></h2>
--->
-
-
-<?php Yii::beginProfile('vvoy_vtrl_id.view.grid'); ?>
+<?php Yii::beginProfile('vtrd_vtrl_id.view.grid'); ?>
 <h3>
     <?php 
-    echo Yii::t('TrucksModule.model', 'Vvoy Voyage') . ' '; 
+    echo Yii::t('TrucksModule.model', 'Vtrd Trailer Doc') . ' '; 
         
-    if (empty($modelMain->vvoyVoyages)) {
+    if (empty($modelMain->vtrdTrailerDocs)) {
         // if no records, reload page
         $button_type = 'Button';
         $no_ajax = 1;
@@ -20,7 +14,7 @@
         $button_type = 'ajaxButton';
         $no_ajax = 0;
         $ajaxOptions = array(
-                'success' => 'function(html) {$.fn.yiiGridView.update(\'vvoy-voyage-grid\');}'
+                'success' => 'function(html) {$.fn.yiiGridView.update(\'vtrd-trailer-doc-grid\');}'
             );        
     }
     $this->widget(
@@ -31,14 +25,14 @@
             'size' => 'mini',
             'icon' => 'icon-plus',
             'url' => array(
-                '//trucks/vvoyVoyage/ajaxCreate',
-                'field' => 'vvoy_vtrl_id',
+                '//trucks/vtrdTrailerDoc/ajaxCreate',
+                'field' => 'vtrd_vtrl_id',
                 'value' => $modelMain->primaryKey,
                 'no_ajax' => $no_ajax,
             ),
             'ajaxOptions' => $ajaxOptions,
             'htmlOptions' => array(
-                'title' => Yii::t('TrucksModule.crud', 'Add new record'),
+                'title' => Yii::t('TrucksModule.crud_static', 'Add new record'),
                 'data-toggle' => 'tooltip',
             ),                 
         )
@@ -47,86 +41,85 @@
 </h3> 
  
 <?php 
-$model = new VvoyVoyage();
-$model->vvoy_vtrl_id = $modelMain->primaryKey;
+$model = new VtrdTrailerDoc();
+$model->vtrd_vtrl_id = $modelMain->primaryKey;
 
 // render grid view
 
 $this->widget('TbGridView',
     array(
-        'id' => 'vvoy-voyage-grid',
+        'id' => 'vtrd-trailer-doc-grid',
         'dataProvider' => $model->search(),
-        #'responsiveTable' => true,
         'template' => '{items}',
-        'pager' => array(
-            'class' => 'TbPager',
-            'displayFirstAndLast' => true,
-        ),
+        'htmlOptions' => array('class'=>'grid-view-no-details'),
         'columns' => array(
             array(
                 'class' => 'editable.EditableColumn',
-                'name' => 'vvoy_ccmp_id',
+                'name' => 'vtrd_vtdt_id',
                 'editable' => array(
                     'type' => 'select',
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
-                    'source' => CHtml::listData(CcmpCompany::model()->findAll(array('limit' => 1000)), 'ccmp_id', 'itemLabel'),                        
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
+                    'source' => CHtml::listData(VtdtTruckDocType::model()->findAll(array('limit' => 1000)), 'vtdt_id', 'itemLabel'),                        
                     //'placement' => 'right',
                 )
             ),
             array(
-                //char(20)
+                //varchar(50)
                 'class' => 'editable.EditableColumn',
-                'name' => 'vvoy_number',
+                'name' => 'vtrd_number',
                 'editable' => array(
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
-                    //'placement' => 'right',
-                )
-            ),
-            array(
-                'class' => 'editable.EditableColumn',
-                'name' => 'vvoy_vtrc_id',
-                'editable' => array(
-                    'type' => 'select',
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
-                    'source' => CHtml::listData(VtrcTruck::model()->findAll(array('limit' => 1000)), 'vtrc_id', 'itemLabel'),                        
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
                     //'placement' => 'right',
                 )
             ),
             array(
                 'class' => 'editable.EditableColumn',
-                'name' => 'vvoy_stst_id',
+                'name' => 'vtrd_issue_date',
                 'editable' => array(
-                    'type' => 'select',
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
-                    'source' => CHtml::listData(StstState::model()->findAll(array('limit' => 1000)), 'stst_id', 'itemLabel'),                        
+                    'type' => 'date',
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
                     //'placement' => 'right',
                 )
             ),
             array(
                 'class' => 'editable.EditableColumn',
-                'name' => 'vvoy_fcrn_id',
+                'name' => 'vtrd_expire_date',
+                'editable' => array(
+                    'type' => 'date',
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtrd_notes',
+                'editable' => array(
+                    'type' => 'textarea',
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtcd_fcrn_id',
                 'editable' => array(
                     'type' => 'select',
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
                     'source' => CHtml::listData(FcrnCurrency::model()->findAll(array('limit' => 1000)), 'fcrn_id', 'itemLabel'),                        
                     //'placement' => 'right',
                 )
             ),
             array(
-                'class' => 'TbEditableColumn',
-                'name' => 'vvoy_start_date',
+                //decimal(10,2)
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtcd_price',
                 'editable' => array(
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
+                    'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
                     //'placement' => 'right',
                 )
             ),
             array(
-                'class' => 'TbEditableColumn',
-                'name' => 'vvoy_end_date',
-                'editable' => array(
-                    'url' => $this->createUrl('//trucks/vvoyVoyage/editableSaver'),
-                    //'placement' => 'right',
-                )
+                'name' => 'vtrd_updated',
             ),
 
             array(
@@ -134,9 +127,9 @@ $this->widget('TbGridView',
                 'buttons' => array(
                     'view' => array('visible' => 'FALSE'),
                     'update' => array('visible' => 'FALSE'),
-                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevvoyVoyages")'),
+                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtrdTrailerDocs")'),
                 ),
-                'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vvoyVoyage/delete", array("vvoy_id" => $data->vvoy_id))',
+                'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtrdTrailerDoc/delete", array("vtrd_id" => $data->vtrd_id))',
                 'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
             ),
         )
@@ -144,4 +137,133 @@ $this->widget('TbGridView',
 );
 ?>
 
-<?php Yii::endProfile('VvoyVoyage.view.grid'); ?>
+<?php Yii::endProfile('VtrdTrailerDoc.view.grid'); ?>
+
+<?php Yii::beginProfile('vtls_vtrl_id.view.grid'); ?>
+<h3>
+    <?php 
+    echo Yii::t('TrucksModule.model', 'Vtls Trailer Service') . ' '; 
+        
+    if (empty($modelMain->vtlsTrailerServices)) {
+        // if no records, reload page
+        $button_type = 'Button';
+        $no_ajax = 1;
+        $ajaxOptions = array();
+    } else {
+        // ajax button
+        $button_type = 'ajaxButton';
+        $no_ajax = 0;
+        $ajaxOptions = array(
+                'success' => 'function(html) {$.fn.yiiGridView.update(\'vtls-trailer-service-grid\');}'
+            );        
+    }
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => $button_type, 
+            'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size' => 'mini',
+            'icon' => 'icon-plus',
+            'url' => array(
+                '//trucks/vtlsTrailerService/ajaxCreate',
+                'field' => 'vtls_vtrl_id',
+                'value' => $modelMain->primaryKey,
+                'no_ajax' => $no_ajax,
+            ),
+            'ajaxOptions' => $ajaxOptions,
+            'htmlOptions' => array(
+                'title' => Yii::t('TrucksModule.crud_static', 'Add new record'),
+                'data-toggle' => 'tooltip',
+            ),                 
+        )
+    );        
+    ?>
+</h3> 
+ 
+<?php 
+$model = new VtlsTrailerService();
+$model->vtls_vtrl_id = $modelMain->primaryKey;
+
+// render grid view
+
+$this->widget('TbGridView',
+    array(
+        'id' => 'vtls-trailer-service-grid',
+        'dataProvider' => $model->search(),
+        'template' => '{items}',
+        'htmlOptions' => array('class'=>'grid-view-no-details'),
+        'columns' => array(
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_vsrv_id',
+                'editable' => array(
+                    'type' => 'select',
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    'source' => CHtml::listData(VsrvServices::model()->sysCompany()->findAll(array('limit' => 1000)), 'vsrv_id', 'itemLabel'),                                            
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_start_date',
+                'editable' => array(
+                    'type' => 'date',
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_end_date',
+                'editable' => array(
+                    'type' => 'date',
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_notes',
+                'editable' => array(
+                    'type' => 'textarea',
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                //decimal(10,2)
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_price',
+                'editable' => array(
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtls_fcrn_id',
+                'editable' => array(
+                    'type' => 'select',
+                    'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
+                    'source' => CHtml::listData(FcrnCurrency::model()->findAll(array('limit' => 1000)), 'fcrn_id', 'itemLabel'),                        
+                    //'placement' => 'right',
+                )
+            ),
+
+
+            array(
+                'class' => 'TbButtonColumn',
+                'buttons' => array(
+                    'view' => array('visible' => 'FALSE'),
+                    'update' => array('visible' => 'FALSE'),
+                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtlsTrailerServices")'),
+                ),
+                'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtlsTrailerService/delete", array("vtls_id" => $data->vtls_id))',
+                'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
+            ),
+        )
+    )
+);
+?>
+
+<?php Yii::endProfile('VtlsTrailerService.view.grid'); ?>

@@ -20,6 +20,8 @@
  * @property VtdcTruckDoc[] $vtdcTruckDocs
  * @property CcmpCompany $vtrcCmmp
  * @property CcmpCompany $vtrcLeasedFromCmmp
+ * @property VtrsTruckService[] $vtrsTruckServices
+ * @property VvoyVoyage[] $vvoyVoyages
  */
 abstract class BaseVtrcTruck extends CActiveRecord
 {
@@ -73,6 +75,8 @@ abstract class BaseVtrcTruck extends CActiveRecord
                 'vtdcTruckDocs' => array(self::HAS_MANY, 'VtdcTruckDoc', 'vtdc_vtrc_id'),
                 'vtrcCmmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrc_cmmp_id'),
                 'vtrcLeasedFromCmmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrc_leased_from_cmmp_id'),
+                'vtrsTruckServices' => array(self::HAS_MANY, 'VtrsTruckService', 'vtrs_vtrc_id'),
+                'vvoyVoyages' => array(self::HAS_MANY, 'VvoyVoyage', 'vvoy_vtrc_id'),
             )
         );
     }

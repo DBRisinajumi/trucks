@@ -142,7 +142,9 @@ public function accessRules()
             if ($model->save()) {
                 if($no_ajax){
                     $this->redirect(Yii::app()->request->urlReferrer);
-                }            
+                }else{
+                    return var_export($model->getErrors());
+                }             
                 return TRUE;
             }
         } catch (Exception $e) {

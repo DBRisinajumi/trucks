@@ -9,18 +9,27 @@
 ?>
 
     <h1>
-        <?php echo Yii::t('TrucksModule.model','Vtrc Truck')?>
+        <?php 
+        $this->widget("bootstrap.widgets.TbButton", array(
+                       "icon"=>"chevron-left",
+                       "size"=>"large",
+                       "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
+                       "visible"=>(Yii::app()->user->checkAccess("Trucks.VtrcTruck.*") || Yii::app()->user->checkAccess("Trucks.VtrcTruck.View")),
+                       "htmlOptions"=>array(
+                                       "class"=>"search-button",
+                                       "data-toggle"=>"tooltip",
+                                       "title"=>Yii::t("TrucksModule.crud_static","List"),
+                                   )
+                    ));
+        echo '&nbsp;' . Yii::t('TrucksModule.model','Vtrc Truck')
+        ?>
         <small>
             <?php echo $model->vtrc_car_reg_nr ?>
         </small>
     </h1>
 
-
-
-<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
-
 <div class="row">
-    <div class="span7">
+    <div class="span4">
         <?php
         $this->widget(
             'TbDetailView',
@@ -148,10 +157,22 @@ array(
     </div>
 
 
-    <div class="span5">
+    <div class="span8">
         <div class="well">
             <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model)); ?>        </div>
     </div>
 </div>
 
-<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+<?php         
+    $this->widget("bootstrap.widgets.TbButton", array(
+                       "icon"=>"chevron-left",
+                       "size"=>"large",
+                       "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
+                       "visible"=>(Yii::app()->user->checkAccess("Trucks.VtrcTruck.*") || Yii::app()->user->checkAccess("Trucks.VtrcTruck.View")),
+                       "htmlOptions"=>array(
+                                       "class"=>"search-button",
+                                       "data-toggle"=>"tooltip",
+                                       "title"=>Yii::t("TrucksModule.crud_static","List"),
+                                   )
+                    ));
+ ?>

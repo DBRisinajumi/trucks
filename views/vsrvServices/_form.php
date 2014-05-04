@@ -3,11 +3,11 @@
     
     <?php
         Yii::app()->bootstrap->registerPackage('select2');
-        Yii::app()->clientScript->registerScript('crud/variant/update','$("#vtdt-truck-doc-type-form select").select2();');
+        Yii::app()->clientScript->registerScript('crud/variant/update','$("#vsrv-services-form select").select2();');
 
 
         $form=$this->beginWidget('TbActiveForm', array(
-            'id' => 'vtdt-truck-doc-type-form',
+            'id' => 'vsrv-services-form',
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
             'htmlOptions' => array(
@@ -19,53 +19,50 @@
     ?>
     
     <div class="row">
-        <div class="span7">
+        <div class="span12">
+
             <div class="form-horizontal">
 
                                     
-                    <?php  ?>
+
                     <div class="control-group">
                         <div class='control-label'>
                             <?php  ?>
                         </div>
                         <div class='controls'>
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
-                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vtdt_id')) != 'tooltip.vtdt_id')?$t:'' ?>'>
+                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vsrv_id')) != 'tooltip.vsrv_id')?$t:'' ?>'>
                                 <?php
                             ;
-                            echo $form->error($model,'vtdt_id')
+                            echo $form->error($model,'vsrv_id')
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
-                                    
-                    <?php  ?>
+
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model, 'vtdt_name') ?>
+                            <?php echo $form->labelEx($model, 'vsrv_name') ?>
                         </div>
                         <div class='controls'>
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
-                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vtdt_name')) != 'tooltip.vtdt_name')?$t:'' ?>'>
+                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vsrv_name')) != 'tooltip.vsrv_name')?$t:'' ?>'>
                                 <?php
-                            echo $form->textField($model, 'vtdt_name', array('size' => 50, 'maxlength' => 50));
-                            echo $form->error($model,'vtdt_name')
+                            echo $form->textField($model, 'vsrv_name', array('size' => 60, 'maxlength' => 256));
+                            echo $form->error($model,'vsrv_name')
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
-                                    
-                    <?php  ?>
+
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model, 'vtdt_hidded') ?>
+                            <?php echo $form->labelEx($model, 'vsrv_hidded') ?>
                         </div>
                         <div class='controls'>
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
-                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vtdt_hidded')) != 'tooltip.vtdt_hidded')?$t:'' ?>'>
+                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vsrv_hidded')) != 'tooltip.vsrv_hidded')?$t:'' ?>'>
                                 <?php
-                            echo $form->checkBox($model, 'vtdt_hidded');
-                            echo $form->error($model,'vtdt_hidded')
+                            echo $form->checkbox($model, 'vsrv_hidded');
+                            echo $form->error($model,'vsrv_hidded')
                             ?>                            </span>
                         </div>
                     </div>
@@ -73,27 +70,27 @@
                 
             </div>
         </div>
+        <!-- main inputs -->
 
-    </div>
-
+            </div>
+    <div class="row">
+        
     <p class="alert">
-        <?php echo Yii::t('TrucksModule.crud_static','Fields with <span class="required">*</span> are required.');?>
+        
+        <?php 
+            echo Yii::t('TrucksModule.crud_static','Fields with <span class="required">*</span> are required.');
+                
+            /**
+             * @todo: We need the buttons inside the form, when a user hits <enter>
+             */                
+            echo ' '.CHtml::submitButton(Yii::t('TrucksModule.crud_static', 'Save'), array(
+                'class' => 'btn btn-primary',
+                'style'=>'visibility: hidden;'                
+            ));
+                
+        ?>
     </p>
 
-    <!-- TODO: We need the buttons inside the form, when a user hits <enter> -->
-    <div class="form-actions" style="visibility: hidden; height: 1px">
-        
-        <?php
-            echo CHtml::Button(
-            Yii::t('TrucksModule.crud_static', 'Cancel'), array(
-                'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('vtdtTruckDocType/admin'),
-                'class' => 'btn'
-            ));
-            echo ' '.CHtml::submitButton(Yii::t('TrucksModule.crud_static', 'Save'), array(
-                'class' => 'btn btn-primary'
-            ));
-        ?>
-    </div>
 
     <?php $this->endWidget() ?>
 </div> <!-- form -->

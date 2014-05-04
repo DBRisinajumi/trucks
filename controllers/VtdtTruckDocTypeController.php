@@ -8,6 +8,7 @@ class VtdtTruckDocTypeController extends Controller
     public $defaultAction = "admin";
     public $scenario = "crud";
     public $scope = "crud";
+    public $menu_route = 'trucks/vtdtTruckDocType';
 
 
 public function filters()
@@ -22,7 +23,7 @@ public function accessRules()
      return array(
         array(
             'allow',
-            'actions' => array('create', 'admin', 'view', 'update', 'editableSaver', 'delete','ajaxCreate'),
+            'actions' => array('create', 'admin', 'update', 'editableSaver', 'delete','ajaxCreate'),
             'roles' => array('Trucks.VtdtTruckDocType.*'),
         ),
         array(
@@ -32,7 +33,7 @@ public function accessRules()
         ),
         array(
             'allow',
-            'actions' => array('view', 'admin'), // let the user view the grid
+            'actions' => array('admin'), // let the user view the grid
             'roles' => array('Trucks.VtdtTruckDocType.View'),
         ),
         array(
@@ -61,12 +62,6 @@ public function accessRules()
         return true;
     }
 
-    public function actionView($vtdt_id)
-    {
-        $model = $this->loadModel($vtdt_id);
-        $this->render('view', array('model' => $model,));
-    }
-
     public function actionCreate()
     {
         $model = new VtdtTruckDocType;
@@ -82,7 +77,7 @@ public function accessRules()
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'vtdt_id' => $model->vtdt_id));
+                        $this->redirect(array('admin'));
                     }
                 }
             } catch (Exception $e) {
@@ -111,7 +106,7 @@ public function accessRules()
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'vtdt_id' => $model->vtdt_id));
+                        $this->redirect(array('admin'));
                     }
                 }
             } catch (Exception $e) {

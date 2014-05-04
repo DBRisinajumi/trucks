@@ -1,14 +1,13 @@
 <?php
 
 
-class VtrlTrailerController extends Controller
+class VtrdTrailerDocController extends Controller
 {
     #public $layout='//layouts/column2';
 
     public $defaultAction = "admin";
     public $scenario = "crud";
     public $scope = "crud";
-    public $menu_route = "trucks/vtrlTrailer";      
 
 
 public function filters()
@@ -24,27 +23,27 @@ public function accessRules()
         array(
             'allow',
             'actions' => array('create', 'admin', 'view', 'update', 'editableSaver', 'delete','ajaxCreate'),
-            'roles' => array('Trucks.VtrlTrailer.*'),
+            'roles' => array('Trucks.VtrdTrailerDoc.*'),
         ),
         array(
             'allow',
             'actions' => array('create','ajaxCreate'),
-            'roles' => array('Trucks.VtrlTrailer.Create'),
+            'roles' => array('Trucks.VtrdTrailerDoc.Create'),
         ),
         array(
             'allow',
             'actions' => array('view', 'admin'), // let the user view the grid
-            'roles' => array('Trucks.VtrlTrailer.View'),
+            'roles' => array('Trucks.VtrdTrailerDoc.View'),
         ),
         array(
             'allow',
             'actions' => array('update', 'editableSaver'),
-            'roles' => array('Trucks.VtrlTrailer.Update'),
+            'roles' => array('Trucks.VtrdTrailerDoc.Update'),
         ),
         array(
             'allow',
             'actions' => array('delete'),
-            'roles' => array('Trucks.VtrlTrailer.Delete'),
+            'roles' => array('Trucks.VtrdTrailerDoc.Delete'),
         ),
         array(
             'deny',
@@ -62,49 +61,49 @@ public function accessRules()
         return true;
     }
 
-    public function actionView($vtrl_id)
+    public function actionView($vtrd_id)
     {
-        $model = $this->loadModel($vtrl_id);
+        $model = $this->loadModel($vtrd_id);
         $this->render('view', array('model' => $model,));
     }
 
     public function actionCreate()
     {
-        $model = new VtrlTrailer;
+        $model = new VtrdTrailerDoc;
         $model->scenario = $this->scenario;
 
-        $this->performAjaxValidation($model, 'vtrl-trailer-form');
+        $this->performAjaxValidation($model, 'vtrd-trailer-doc-form');
 
-        if (isset($_POST['VtrlTrailer'])) {
-            $model->attributes = $_POST['VtrlTrailer'];
+        if (isset($_POST['VtrdTrailerDoc'])) {
+            $model->attributes = $_POST['VtrdTrailerDoc'];
 
             try {
                 if ($model->save()) {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'vtrl_id' => $model->vtrl_id));
+                        $this->redirect(array('view', 'vtrd_id' => $model->vtrd_id));
                     }
                 }
             } catch (Exception $e) {
-                $model->addError('vtrl_id', $e->getMessage());
+                $model->addError('vtrd_id', $e->getMessage());
             }
-        } elseif (isset($_GET['VtrlTrailer'])) {
-            $model->attributes = $_GET['VtrlTrailer'];
+        } elseif (isset($_GET['VtrdTrailerDoc'])) {
+            $model->attributes = $_GET['VtrdTrailerDoc'];
         }
 
         $this->render('create', array('model' => $model));
     }
 
-    public function actionUpdate($vtrl_id)
+    public function actionUpdate($vtrd_id)
     {
-        $model = $this->loadModel($vtrl_id);
+        $model = $this->loadModel($vtrd_id);
         $model->scenario = $this->scenario;
 
-        $this->performAjaxValidation($model, 'vtrl-trailer-form');
+        $this->performAjaxValidation($model, 'vtrd-trailer-doc-form');
 
-        if (isset($_POST['VtrlTrailer'])) {
-            $model->attributes = $_POST['VtrlTrailer'];
+        if (isset($_POST['VtrdTrailerDoc'])) {
+            $model->attributes = $_POST['VtrdTrailerDoc'];
 
 
             try {
@@ -112,11 +111,11 @@ public function accessRules()
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'vtrl_id' => $model->vtrl_id));
+                        $this->redirect(array('view', 'vtrd_id' => $model->vtrd_id));
                     }
                 }
             } catch (Exception $e) {
-                $model->addError('vtrl_id', $e->getMessage());
+                $model->addError('vtrd_id', $e->getMessage());
             }
         }
 
@@ -126,32 +125,33 @@ public function accessRules()
     public function actionEditableSaver()
     {
         Yii::import('TbEditableSaver');
-        $es = new TbEditableSaver('VtrlTrailer'); // classname of model to be updated
+        $es = new TbEditableSaver('VtrdTrailerDoc'); // classname of model to be updated
         $es->update();
     }
 
     public function actionAjaxCreate($field, $value, $no_ajax = 0) 
     {
-        $model = new VtrlTrailer;
+        $model = new VtrdTrailerDoc;
         $model->$field = $value;
         try {
             if ($model->save()) {
                 if($no_ajax){
                     $this->redirect(Yii::app()->request->urlReferrer);
-                }else{
-                    return var_export($model->getErrors());
-                }     
-            }
+                }            
+                return TRUE;
+            }else{
+                return var_export($model->getErrors());
+            }            
         } catch (Exception $e) {
             throw new CHttpException(500, $e->getMessage());
         }
     }
     
-    public function actionDelete($vtrl_id)
+    public function actionDelete($vtrd_id)
     {
         if (Yii::app()->request->isPostRequest) {
             try {
-                $this->loadModel($vtrl_id)->delete();
+                $this->loadModel($vtrd_id)->delete();
             } catch (Exception $e) {
                 throw new CHttpException(500, $e->getMessage());
             }
@@ -164,21 +164,21 @@ public function accessRules()
                 }
             }
         } else {
-            throw new CHttpException(400, Yii::t('TrucksModule.crud', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400, Yii::t('TrucksModule.crud_static', 'Invalid request. Please do not repeat this request again.'));
         }
     }
 
     public function actionAdmin()
     {
-        $model = new VtrlTrailer('search');
+        $model = new VtrdTrailerDoc('search');
         $scopes = $model->scopes();
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
         }
         $model->unsetAttributes();
 
-        if (isset($_GET['VtrlTrailer'])) {
-            $model->attributes = $_GET['VtrlTrailer'];
+        if (isset($_GET['VtrdTrailerDoc'])) {
+            $model->attributes = $_GET['VtrdTrailerDoc'];
         }
 
         $this->render('admin', array('model' => $model,));
@@ -186,7 +186,7 @@ public function accessRules()
 
     public function loadModel($id)
     {
-        $m = VtrlTrailer::model();
+        $m = VtrdTrailerDoc::model();
         // apply scope, if available
         $scopes = $m->scopes();
         if (isset($scopes[$this->scope])) {
@@ -194,21 +194,14 @@ public function accessRules()
         }
         $model = $m->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('TrucksModule.crud', 'The requested page does not exist.'));
+            throw new CHttpException(404, Yii::t('TrucksModule.crud_static', 'The requested page does not exist.'));
         }
-        
-		if (Yii::app()->sysCompany->getActiveCompany()){
-            if( !Yii::app()->sysCompany->isValidUserCompany($model->vtrl_ccmp_id)){
-                throw new CHttpException(404, Yii::t('TrucksModule.crud_static', 'Requested closed data.'));
-            }    
-        }  
-                
         return $model;
     }
 
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'vtrl-trailer-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'vtrd-trailer-doc-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

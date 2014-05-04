@@ -13,6 +13,8 @@
  * @property string $vtrl_notes
  *
  * Relations of table "vtrl_trailer" available as properties of the model:
+ * @property VtlsTrailerService[] $vtlsTrailerServices
+ * @property VtrdTrailerDoc[] $vtrdTrailerDocs
  * @property CcmpCompany $vtrlCcmp
  * @property VvoyVoyage[] $vvoyVoyages
  */
@@ -65,6 +67,8 @@ abstract class BaseVtrlTrailer extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'vtlsTrailerServices' => array(self::HAS_MANY, 'VtlsTrailerService', 'vtls_vtrl_id'),
+                'vtrdTrailerDocs' => array(self::HAS_MANY, 'VtrdTrailerDoc', 'vtrd_vtrl_id'),
                 'vtrlCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrl_ccmp_id'),
                 'vvoyVoyages' => array(self::HAS_MANY, 'VvoyVoyage', 'vvoy_vtrl_id'),
             )

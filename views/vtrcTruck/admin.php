@@ -5,7 +5,6 @@ $this->setPageTitle(
     . Yii::t('TrucksModule.crud_static', 'Manage')
 );
 
-//$this->breadcrumbs[] = Yii::t('TrucksModule.model', 'Vtrc Trucks');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -21,16 +20,22 @@ Yii::app()->clientScript->registerScript('search', "
     ");
 ?>
 
-<?php //$this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
+
     <h1>
-
-        <?php echo Yii::t('TrucksModule.model', 'Vtrc Trucks'); ?>
-        <small><?php echo Yii::t('TrucksModule.crud_static', 'Manage'); ?></small>
-
+        <?php 
+        $this->widget("bootstrap.widgets.TbButton", array(
+            "label" => Yii::t("TrucksModule.crud_static", "Create"),
+            "icon" => "icon-plus",
+            "size" => "large",
+            "type" => "success",
+            "url" => array("create"),
+            "visible" => (Yii::app()->user->checkAccess("Trucks.VtrcTruck.*") || Yii::app()->user->checkAccess("Trucks.VtrcTruck.Create"))
+        ));
+        ?>   
+        <i class="icon-truck"></i>      
+        <?php echo Yii::t('TrucksModule.model', 'Vtrc Trucks Manage'); ?>
     </h1>
-
-
-<?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
+s
 <?php Yii::beginProfile('VtrcTruck.view.grid'); ?>
 
 
@@ -40,7 +45,6 @@ $this->widget('TbGridView',
         'id' => 'vtrc-truck-grid',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        #'responsiveTable' => true,
         'template' => '{summary}{pager}{items}{pager}',
         'pager' => array(
             'class' => 'TbPager',

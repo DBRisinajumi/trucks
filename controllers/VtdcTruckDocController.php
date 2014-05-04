@@ -139,7 +139,9 @@ public function accessRules()
                     $this->redirect(Yii::app()->request->urlReferrer);
                 }            
                 return TRUE;
-            }
+            }else{
+                return var_export($model->getErrors());
+            }            
         } catch (Exception $e) {
             throw new CHttpException(500, $e->getMessage());
         }

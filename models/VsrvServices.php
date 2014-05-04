@@ -1,10 +1,10 @@
 <?php
 
 // auto-loading
-Yii::setPathOfAlias('VtdcTruckDoc', dirname(__FILE__));
-Yii::import('VtdcTruckDoc.*');
+Yii::setPathOfAlias('VsrvServices', dirname(__FILE__));
+Yii::import('VsrvServices.*');
 
-class VtdcTruckDoc extends BaseVtdcTruckDoc
+class VsrvServices extends BaseVsrvServices
 {
 
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
@@ -20,7 +20,7 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+        return (string) $this->vsrv_name;
     }
 
     public function behaviors()
@@ -52,23 +52,23 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
         ));
     }
     
-    public function save($runValidation = true, $attributes = NULL) 
+        public function save($runValidation = true, $attributes = NULL) 
     {
-        if(empty($attributes)){
-            $attributes = array();
-        }
-        $attributes[] = 'vtdc_updated';
-        $this->vtdc_updated = date('Y-m-d');
+        //set system company id
+        if ($this->isNewRecord && Yii::app()->sysCompany->getActiveCompany()){
+            $this->vsrv_sys_ccmp_id = Yii::app()->sysCompany->getActiveCompany();
+        }              
 
         return parent::save($runValidation,$attributes);
 
     }    
 
-    public function delete() 
+    public function sysCompany()
     {
-        $this->vtdc_deleted = 1;
-        return parent::save();
-
-    }    
-
+        $this->getDbCriteria()->mergeWith(array(
+                'condition'=>'t.vsrv_sys_ccmp_id = ' . Yii::app()->sysCompany->getActiveCompany(),
+        ));
+        return $this;
+    }  
+    
 }
