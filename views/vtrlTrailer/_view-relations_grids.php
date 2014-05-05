@@ -119,10 +119,6 @@ $this->widget('TbGridView',
                 )
             ),
             array(
-                'name' => 'vtrd_updated',
-            ),
-
-            array(
                 'class' => 'TbButtonColumn',
                 'buttons' => array(
                     'view' => array('visible' => 'FALSE'),

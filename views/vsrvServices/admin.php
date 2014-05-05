@@ -19,6 +19,7 @@ $this->setPageTitle(
                         "visible"=>(Yii::app()->user->checkAccess("Trucks.VsrvServices.*") || Yii::app()->user->checkAccess("Trucks.VsrvServices.Create"))
                    ));
         ?>
+        <i class="icon-wrench"></i>  
         <?php echo Yii::t('TrucksModule.model', 'Vsrv Services Manage'); ?>
     </h1>
 
@@ -64,14 +65,12 @@ $this->widget('TbGridView',
             array(
                 'class' => 'TbButtonColumn',
                 'buttons' => array(
-                    'view' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VsrvServices.View")'),
+                    'view' => array('visible' => 'FALSE'),
                     'update' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VsrvServices.Update")'),
                     'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VsrvServices.Delete")'),
                 ),
-                'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("vsrv_id" => $data->vsrv_id))',
                 'updateButtonUrl' => 'Yii::app()->controller->createUrl("update", array("vsrv_id" => $data->vsrv_id))',
                 'deleteButtonUrl' => 'Yii::app()->controller->createUrl("delete", array("vsrv_id" => $data->vsrv_id))',
-                'viewButtonOptions'=>array('data-toggle'=>'tooltip'),   
                 'updateButtonOptions'=>array('data-toggle'=>'tooltip'),   
                 'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),   
             ),

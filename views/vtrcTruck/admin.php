@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerScript('search', "
         <i class="icon-truck"></i>      
         <?php echo Yii::t('TrucksModule.model', 'Vtrc Trucks Manage'); ?>
     </h1>
-s
+
 <?php Yii::beginProfile('VtrcTruck.view.grid'); ?>
 
 

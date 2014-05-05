@@ -11,7 +11,6 @@
  * @property string $vtrd_issue_date
  * @property string $vtrd_expire_date
  * @property string $vtrd_notes
- * @property string $vtrd_updated
  * @property integer $vtcd_fcrn_id
  * @property string $vtcd_price
  * @property integer $vtrd_deleted
@@ -39,12 +38,12 @@ abstract class BaseVtrdTrailerDoc extends CActiveRecord
         return array_merge(
             parent::rules(), array(
                 array('vtrd_vtrl_id', 'required'),
-                array('vtrd_vtdt_id, vtrd_number, vtrd_issue_date, vtrd_expire_date, vtrd_notes, vtrd_updated, vtcd_fcrn_id, vtcd_price, vtrd_deleted', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('vtrd_vtdt_id, vtrd_number, vtrd_issue_date, vtrd_expire_date, vtrd_notes, vtcd_fcrn_id, vtcd_price, vtrd_deleted', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('vtrd_vtrl_id, vtrd_vtdt_id, vtcd_fcrn_id, vtrd_deleted', 'numerical', 'integerOnly' => true),
                 array('vtrd_number', 'length', 'max' => 50),
                 array('vtcd_price', 'length', 'max' => 10),
-                array('vtrd_issue_date, vtrd_expire_date, vtrd_notes, vtrd_updated', 'safe'),
-                array('vtrd_id, vtrd_vtrl_id, vtrd_vtdt_id, vtrd_number, vtrd_issue_date, vtrd_expire_date, vtrd_notes, vtrd_updated, vtcd_fcrn_id, vtcd_price, vtrd_deleted', 'safe', 'on' => 'search'),
+                array('vtrd_issue_date, vtrd_expire_date, vtrd_notes', 'safe'),
+                array('vtrd_id, vtrd_vtrl_id, vtrd_vtdt_id, vtrd_number, vtrd_issue_date, vtrd_expire_date, vtrd_notes, vtcd_fcrn_id, vtcd_price, vtrd_deleted', 'safe', 'on' => 'search'),
             )
         );
     }
@@ -86,7 +85,6 @@ abstract class BaseVtrdTrailerDoc extends CActiveRecord
             'vtrd_issue_date' => Yii::t('TrucksModule.model', 'Vtrd Issue Date'),
             'vtrd_expire_date' => Yii::t('TrucksModule.model', 'Vtrd Expire Date'),
             'vtrd_notes' => Yii::t('TrucksModule.model', 'Vtrd Notes'),
-            'vtrd_updated' => Yii::t('TrucksModule.model', 'Vtrd Updated'),
             'vtcd_fcrn_id' => Yii::t('TrucksModule.model', 'Vtcd Fcrn'),
             'vtcd_price' => Yii::t('TrucksModule.model', 'Vtcd Price'),
             'vtrd_deleted' => Yii::t('TrucksModule.model', 'Vtrd Deleted'),
@@ -106,7 +104,6 @@ abstract class BaseVtrdTrailerDoc extends CActiveRecord
         $criteria->compare('t.vtrd_issue_date', $this->vtrd_issue_date, true);
         $criteria->compare('t.vtrd_expire_date', $this->vtrd_expire_date, true);
         $criteria->compare('t.vtrd_notes', $this->vtrd_notes, true);
-        $criteria->compare('t.vtrd_updated', $this->vtrd_updated, true);
         $criteria->compare('t.vtcd_fcrn_id', $this->vtcd_fcrn_id);
         $criteria->compare('t.vtcd_price', $this->vtcd_price, true);
         $criteria->compare('t.vtrd_deleted', $this->vtrd_deleted);

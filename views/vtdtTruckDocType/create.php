@@ -25,12 +25,9 @@ $cancel_button =                    $this->widget("bootstrap.widgets.TbButton", 
 
 <?php $this->renderPartial('_form', array('model' => $model, 'buttons' => 'create')); ?>
 
-<div class="clearfix">
-    <div class="btn-toolbar pull-left">
-        <div class="btn-group"></div>
-<?php
-echo $cancel_button;
-
+<?php echo $cancel_button;?>
+&nbsp;
+<?php 
 $this->widget("bootstrap.widgets.TbButton", array(
     "label" => Yii::t("TrucksModule.crud_static", "Save"),
     "icon" => "icon-thumbs-up icon-white",
@@ -42,4 +39,3 @@ $this->widget("bootstrap.widgets.TbButton", array(
     "visible" => (Yii::app()->user->checkAccess("Trucks.VtdtTruckDocType.*") || Yii::app()->user->checkAccess("Trucks.VtdtTruckDocType.View"))
 ));
 ?>
-</div></div></div>

@@ -51,18 +51,6 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
             'criteria' => $this->searchCriteria($criteria),
         ));
     }
-    
-    public function save($runValidation = true, $attributes = NULL) 
-    {
-        if(empty($attributes)){
-            $attributes = array();
-        }
-        $attributes[] = 'vtdc_updated';
-        $this->vtdc_updated = date('Y-m-d');
-
-        return parent::save($runValidation,$attributes);
-
-    }    
 
     public function delete() 
     {

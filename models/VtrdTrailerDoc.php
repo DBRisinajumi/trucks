@@ -52,18 +52,6 @@ class VtrdTrailerDoc extends BaseVtrdTrailerDoc
         ));
     }
     
-    public function save($runValidation = true, $attributes = NULL) 
-    {
-        if(empty($attributes)){
-            $attributes = array();
-        }
-        $attributes[] = 'vtrd_updated';
-        $this->vtrd_updated = date('Y-m-d');
-
-        return parent::save($runValidation,$attributes);
-
-    }    
-
     public function delete() 
     {
         $this->vtrd_deleted = 1;

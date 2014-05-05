@@ -135,9 +135,6 @@ $this->widget('TbGridView',
                     //'placement' => 'right',
                 )
             ),            
-            array(
-                'name' => 'vtdc_updated',
-            ),
 
             array(
                 'class' => 'TbButtonColumn',

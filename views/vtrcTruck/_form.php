@@ -151,7 +151,8 @@
                     'allowEmpty' => true,
                     'style' => 'dropdownlist',
                     'htmlOptions' => array(
-                        'checkAll' => 'all'
+                        'checkAll' => 'all',
+                        'style' => 'width: 200px;'
                     ),
                 )
                 );

@@ -18,6 +18,7 @@ $cancel_button = $this->widget("bootstrap.widgets.TbButton", array(
 ?>
     <h1>
         <?php echo $cancel_button?>
+        <i class="icon-wrench"></i>  
         <?php echo Yii::t('TrucksModule.model', 'Vsrv Services Create'); ?>
     </h1>
 

@@ -18,10 +18,11 @@
                        "htmlOptions"=>array(
                                        "class"=>"search-button",
                                        "data-toggle"=>"tooltip",
-                                       "title"=>Yii::t("TrucksModule.crud_static","List"),
+                                       "title"=>Yii::t("TrucksModule.crud_static","Cancel"),
                                    )
                     ));
-        echo '&nbsp;' . Yii::t('TrucksModule.model','Vtrc Truck')
+        echo '&nbsp;<i class="icon-truck"></i>';
+        echo '&nbsp;' . Yii::t('TrucksModule.model','Vtrc Truck');
         ?>
         <small>
             <?php echo $model->vtrc_car_reg_nr ?>
@@ -117,14 +118,27 @@ array(
                     ),
         array(
             'name' => 'vtrc_leased_from_cmmp_id',
-            'value' => ($model->vtrcLeasedFromCmmp !== null)?CHtml::link(
-                            '<i class="icon icon-circle-arrow-left"></i> '.$model->vtrcLeasedFromCmmp->itemLabel,
-                            array('/trucks/ccmpCompany/view','ccmp_id' => $model->vtrcLeasedFromCmmp->ccmp_id),
-                            array('class' => '')).' '.CHtml::link(
-                            '<i class="icon icon-pencil"></i> ',
-                            array('/trucks/ccmpCompany/update','ccmp_id' => $model->vtrcLeasedFromCmmp->ccmp_id),
-                            array('class' => '')):'n/a',
-            'type' => 'html',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'EditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'vtrc_leased_from_cmmp_id',
+                                'url' => $this->createUrl('/trucks/vtrcTruck/editableSaver'),
+                                'type' => 'select',
+                                'source' => CHtml::listData(CcmpCompany::model()->userSysCompanyComanies()->findAll(array('limit' => 1000)), 'ccmp_id', 'itemLabel'),                                   
+                            ),
+                            true
+                        )
+            
+//            'value' => ($model->vtrcLeasedFromCmmp !== null)?CHtml::link(
+//                            '<i class="icon icon-circle-arrow-left"></i> '.$model->vtrcLeasedFromCmmp->itemLabel,
+//                            array('/trucks/ccmpCompany/view','ccmp_id' => $model->vtrcLeasedFromCmmp->ccmp_id),
+//                            array('class' => '')).' '.CHtml::link(
+//                            '<i class="icon icon-pencil"></i> ',
+//                            array('/trucks/ccmpCompany/update','ccmp_id' => $model->vtrcLeasedFromCmmp->ccmp_id),
+//                            array('class' => '')):'n/a',
+//            'type' => 'html',
         ),
 array(
                         'name' => 'vtrc_purchase_value',

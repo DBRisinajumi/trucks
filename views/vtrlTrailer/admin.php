@@ -55,7 +55,7 @@ $this->widget('TbGridView',
                 'name' => 'vtrl_reg_nr',
                 'editable' => array(
                     'url' => $this->createUrl('/trucks/vtrlTrailer/editableSaver'),
-                    //'placement' => 'right',
+                    'placement' => 'right',
                 )
             ),
             array(
