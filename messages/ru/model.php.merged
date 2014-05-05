@@ -68,6 +68,7 @@ return array (
   'Vtrc Truck' => '',
   'Vtrc Truck Create' => '',
   'Vtrc Trucks' => '',
+  'Vtrc Trucks Manage' => '',
   'Vtrc Year' => '',
   'Vtrc Year Mileage' => '',
   'Vtrd' => '',
