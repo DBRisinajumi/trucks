@@ -20,7 +20,9 @@ class VtrdTrailerDoc extends BaseVtrdTrailerDoc
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+        return (string) $this->vtrdVtrl->vtrl_reg_nr . 
+            ' ' . $this->vtrdVtdt->vtdt_name
+            ;
     }
 
     public function behaviors()
@@ -51,13 +53,5 @@ class VtrdTrailerDoc extends BaseVtrdTrailerDoc
             'criteria' => $this->searchCriteria($criteria),
         ));
     }
-    
-    public function delete() 
-    {
-        $this->vtrd_deleted = 1;
-        return parent::save();
-
-    }        
 
 }
-

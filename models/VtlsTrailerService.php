@@ -20,7 +20,9 @@ class VtlsTrailerService extends BaseVtlsTrailerService
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+        return (string) $this->vtlsVtrl->vtrl_reg_nr . 
+            ' ' . $this->vtlsVsrv->vsrv_name
+            ;
     }
 
     public function behaviors()

@@ -20,7 +20,9 @@ class VtrsTruckService extends BaseVtrsTruckService
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+         return (string) $this->vtrsVtrc->vtrc_car_reg_nr . 
+            ' ' . $this->vtrsVsrv->vsrv_name
+            ;
     }
 
     public function behaviors()

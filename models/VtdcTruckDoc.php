@@ -20,7 +20,8 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+         return (string) $this->vtdcVtrc->vtrc_car_reg_nr .
+            ' ' .$this->vtdcVtdt->vtdt_name;
     }
 
     public function behaviors()

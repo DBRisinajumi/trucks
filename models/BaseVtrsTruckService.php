@@ -7,17 +7,12 @@
  * @property string $vtrs_id
  * @property integer $vtrs_vtrc_id
  * @property integer $vtrs_vsrv_id
- * @property string $vtrs_start_date
- * @property string $vtrs_end_date
+ * @property string $vtrs_fixr_id
  * @property string $vtrs_notes
- * @property string $vtrs_price
- * @property integer $vtrs_fcrn_id
- * @property integer $vtrs_deleted
  *
  * Relations of table "vtrs_truck_service" available as properties of the model:
- * @property VsrvServices $vtrsVsrv
  * @property VtrcTruck $vtrsVtrc
- * @property FcrnCurrency $vtrsFcrn
+ * @property VsrvServices $vtrsVsrv
  */
 abstract class BaseVtrsTruckService extends CActiveRecord
 {
@@ -37,18 +32,18 @@ abstract class BaseVtrsTruckService extends CActiveRecord
         return array_merge(
             parent::rules(), array(
                 array('vtrs_vtrc_id', 'required'),
-                array('vtrs_vsrv_id, vtrs_start_date, vtrs_end_date, vtrs_notes, vtrs_price, vtrs_fcrn_id, vtrs_deleted', 'default', 'setOnEmpty' => true, 'value' => null),
-                array('vtrs_vtrc_id, vtrs_vsrv_id, vtrs_fcrn_id, vtrs_deleted', 'numerical', 'integerOnly' => true),
-                array('vtrs_price', 'length', 'max' => 10),
-                array('vtrs_start_date, vtrs_end_date, vtrs_notes', 'safe'),
-                array('vtrs_id, vtrs_vtrc_id, vtrs_vsrv_id, vtrs_start_date, vtrs_end_date, vtrs_notes, vtrs_price, vtrs_fcrn_id, vtrs_deleted', 'safe', 'on' => 'search'),
+                array('vtrs_vsrv_id, vtrs_fixr_id, vtrs_notes', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('vtrs_vtrc_id, vtrs_vsrv_id', 'numerical', 'integerOnly' => true),
+                array('vtrs_fixr_id', 'length', 'max' => 10),
+                array('vtrs_notes', 'safe'),
+                array('vtrs_id, vtrs_vtrc_id, vtrs_vsrv_id, vtrs_fixr_id, vtrs_notes', 'safe', 'on' => 'search'),
             )
         );
     }
 
     public function getItemLabel()
     {
-        return (string) $this->vtrs_start_date;
+        return (string) $this->vtrs_fixr_id;
     }
 
     public function behaviors()
@@ -66,9 +61,8 @@ abstract class BaseVtrsTruckService extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
-                'vtrsVsrv' => array(self::BELONGS_TO, 'VsrvServices', 'vtrs_vsrv_id'),
                 'vtrsVtrc' => array(self::BELONGS_TO, 'VtrcTruck', 'vtrs_vtrc_id'),
-                'vtrsFcrn' => array(self::BELONGS_TO, 'FcrnCurrency', 'vtrs_fcrn_id'),
+                'vtrsVsrv' => array(self::BELONGS_TO, 'VsrvServices', 'vtrs_vsrv_id'),
             )
         );
     }
@@ -79,12 +73,8 @@ abstract class BaseVtrsTruckService extends CActiveRecord
             'vtrs_id' => Yii::t('TrucksModule.model', 'Vtrs'),
             'vtrs_vtrc_id' => Yii::t('TrucksModule.model', 'Vtrs Vtrc'),
             'vtrs_vsrv_id' => Yii::t('TrucksModule.model', 'Vtrs Vsrv'),
-            'vtrs_start_date' => Yii::t('TrucksModule.model', 'Vtrs Start Date'),
-            'vtrs_end_date' => Yii::t('TrucksModule.model', 'Vtrs End Date'),
+            'vtrs_fixr_id' => Yii::t('TrucksModule.model', 'Vtrs Fixr'),
             'vtrs_notes' => Yii::t('TrucksModule.model', 'Vtrs Notes'),
-            'vtrs_price' => Yii::t('TrucksModule.model', 'Vtrs Price'),
-            'vtrs_fcrn_id' => Yii::t('TrucksModule.model', 'Vtrs Fcrn'),
-            'vtrs_deleted' => Yii::t('TrucksModule.model', 'Vtrs Deleted'),
         );
     }
 
@@ -97,12 +87,8 @@ abstract class BaseVtrsTruckService extends CActiveRecord
         $criteria->compare('t.vtrs_id', $this->vtrs_id, true);
         $criteria->compare('t.vtrs_vtrc_id', $this->vtrs_vtrc_id);
         $criteria->compare('t.vtrs_vsrv_id', $this->vtrs_vsrv_id);
-        $criteria->compare('t.vtrs_start_date', $this->vtrs_start_date, true);
-        $criteria->compare('t.vtrs_end_date', $this->vtrs_end_date, true);
+        $criteria->compare('t.vtrs_fixr_id', $this->vtrs_fixr_id, true);
         $criteria->compare('t.vtrs_notes', $this->vtrs_notes, true);
-        $criteria->compare('t.vtrs_price', $this->vtrs_price, true);
-        $criteria->compare('t.vtrs_fcrn_id', $this->vtrs_fcrn_id);
-        $criteria->compare('t.vtrs_deleted', $this->vtrs_deleted);
 
 
         return $criteria;
