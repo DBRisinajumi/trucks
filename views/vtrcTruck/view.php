@@ -126,7 +126,7 @@ array(
                                 'attribute' => 'vtrc_leased_from_cmmp_id',
                                 'url' => $this->createUrl('/trucks/vtrcTruck/editableSaver'),
                                 'type' => 'select',
-                                'source' => CHtml::listData(CcmpCompany::model()->userSysCompanyComanies()->findAll(array('limit' => 1000)), 'ccmp_id', 'itemLabel'),                                   
+                                'source' => CHtml::listData(CcmpCompany::model()->userSysCompanyCompanies()->findAll(array('limit' => 1000)), 'ccmp_id', 'itemLabel'),                                   
                             ),
                             true
                         )
