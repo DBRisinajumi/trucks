@@ -53,11 +53,4 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
         ));
     }
 
-    public function delete() 
-    {
-        $this->vtdc_deleted = 1;
-        return parent::save();
-
-    }    
-
 }
