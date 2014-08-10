@@ -24,6 +24,11 @@ class VtrsTruckService extends BaseVtrsTruckService
             ' ' . $this->vtrsVsrv->vsrv_name
             ;
     }
+    
+    public function getItemPositionLabel()
+    {
+            return $this->getItemLabel();
+    }       
 
     public function behaviors()
     {

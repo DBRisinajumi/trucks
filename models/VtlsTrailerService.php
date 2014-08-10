@@ -24,6 +24,11 @@ class VtlsTrailerService extends BaseVtlsTrailerService
             ' ' . $this->vtlsVsrv->vsrv_name
             ;
     }
+    
+    public function getItemPositionLabel()
+    {
+            return $this->getItemLabel();
+    }     
 
     public function behaviors()
     {

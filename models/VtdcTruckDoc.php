@@ -23,6 +23,11 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
          return (string) $this->vtdcVtrc->vtrc_car_reg_nr .
             ' ' .$this->vtdcVtdt->vtdt_name;
     }
+    
+    public function getItemPositionLabel()
+    {
+            return $this->getItemLabel();
+    }    
 
     public function behaviors()
     {

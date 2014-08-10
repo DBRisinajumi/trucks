@@ -24,6 +24,11 @@ class VtrdTrailerDoc extends BaseVtrdTrailerDoc
             ' ' . $this->vtrdVtdt->vtdt_name
             ;
     }
+    
+    public function getItemPositionLabel()
+    {
+            return $this->getItemLabel();
+    }       
 
     public function behaviors()
     {
