@@ -17,9 +17,11 @@
  * @property string $vtrc_notes
  *
  * Relations of table "vtrc_truck" available as properties of the model:
+ * @property VtcoTrucOdoChanges[] $vtcoTrucOdoChanges
  * @property VtdcTruckDoc[] $vtdcTruckDocs
  * @property CcmpCompany $vtrcCmmp
  * @property CcmpCompany $vtrcLeasedFromCmmp
+ * @property VtroTruckOdometer[] $vtroTruckOdometers
  * @property VtrsTruckService[] $vtrsTruckServices
  * @property VvoyVoyage[] $vvoyVoyages
  */
@@ -72,9 +74,11 @@ abstract class BaseVtrcTruck extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'vtcoTrucOdoChanges' => array(self::HAS_MANY, 'VtcoTrucOdoChanges', 'vtco_vtrc_id'),
                 'vtdcTruckDocs' => array(self::HAS_MANY, 'VtdcTruckDoc', 'vtdc_vtrc_id'),
                 'vtrcCmmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrc_cmmp_id'),
                 'vtrcLeasedFromCmmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrc_leased_from_cmmp_id'),
+                'vtroTruckOdometers' => array(self::HAS_MANY, 'VtroTruckOdometer', 'vtro_vtrc_id'),
                 'vtrsTruckServices' => array(self::HAS_MANY, 'VtrsTruckService', 'vtrs_vtrc_id'),
                 'vvoyVoyages' => array(self::HAS_MANY, 'VvoyVoyage', 'vvoy_vtrc_id'),
             )

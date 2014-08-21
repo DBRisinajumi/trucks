@@ -11,17 +11,8 @@
     echo Yii::t('TrucksModule.model', 'Vtdc Truck Doc') . ' '; 
 
     //spec parbauda, vai ir ieraksti
-    $isRecords = FALSE;
-    if(!empty($modelMain->vtdcTruckDocs)){
-        foreach($modelMain->vtdcTruckDocs as $doc){
-            if($doc->vtdc_deleted != 1){
-                $isRecords = TRUE;
-                break;
-            }
-        }
-    }
     
-    if (!$isRecords) {
+    if(!empty($modelMain->vtdcTruckDocs)){
         // if no records, reload page
         $button_type = 'Button';
         $no_ajax = 1;
