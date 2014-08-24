@@ -175,8 +175,7 @@ array(
 
 
     <div class="span8">
-        <div class="well">
-            <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model)); ?>        </div>
+            <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model, 'ajax' => false,)); ?>
     </div>
 </div>
 

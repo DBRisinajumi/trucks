@@ -199,17 +199,18 @@
         <!-- main inputs -->
     </div>
 
-    <p class="alert">
-        <?php echo Yii::t('TrucksModule.crud_static','Fields with <span class="required">*</span> are required.');
+    <div class="alert">
+        <?php 
+        echo Yii::t('TrucksModule.crud_static','Fields with <span class="required">*</span> are required.');
         /**
          * @todo: We need the buttons inside the form, when a user hits <enter>
          */
         echo ' '.CHtml::submitButton(Yii::t('TrucksModule.crud', 'Save'), array(
                 'class' => 'btn btn-primary',
                 'style'=>'visibility: hidden;',
-            ));?>        
+            ));
         ?>
-    </p>
+    </div>
 
     <?php $this->endWidget() ?>
 </div> <!-- form -->
