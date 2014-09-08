@@ -23,7 +23,7 @@ return array (
   'Vsrv Sys Ccmp' => '',
   'Vtdc' => '',
   'Vtdc Vtdt' => 'Document Type',
-  'Vtdc Vtrc' => 'Document Type',
+  'Vtdc Vtrc' => 'Truck',
   'Vtdt' => '',
   'Vtls' => '',
   'Vtls Vsrv' => 'Service Type',

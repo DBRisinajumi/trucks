@@ -58,5 +58,44 @@ class VtrsTruckService extends BaseVtrsTruckService
             'criteria' => $this->searchCriteria($criteria),
         ));
     }
+    
+    public function afterSave() {
+        
+        /**
+         * registre transaction in dimensions
+         */
+        
+        //get models
+        $fixr = $this->vtrsFixr;
+        if(empty($fixr->fixr_period_fret_id)){
+            parent::afterSave();
+            return;
+        }
+        
+        //meklee periodu
+        $attributes = array(
+            'fped_fixr_id' => $fixr->fixr_id,
+        );
+        $fped = FpedPeriodDate::model()->findByAttributes($attributes);
+        if(empty($fped)){
+            parent::afterSave();
+            return;
+        }
+        
+        $vsrv = $this->vtrsVsrv;
+        $vtrc = $this->vtrsVtrc;
+        
+        //save dim data
+        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
+        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
+        $fdda->setFdm2Id($vsrv->vsrv_id, $vsrv->vsrv_name);
+        $fdda->setFdm3Id($vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
+        $fdda->fdda_date_from = $fped->fped_start_date;
+        $fdda->fdda_date_to = $fped->fped_end_date;
+        $fdda->save();
+        
+        parent::afterSave();
+    }    
+    
 
 }

@@ -139,7 +139,7 @@ if(!$ajax || $ajax == 'vtdc-truck-doc-grid'){
     ?>
 
 <?php
-    Yii::endProfile('VtdcTruckDoc.view.grid');
+    Yii::endProfile('vtdc_vtrc_id.view.grid');
 }    
 ?>
 
@@ -246,7 +246,6 @@ if(!$ajax || $ajax == 'vtrs-truck-service-grid'){
     ?>
 
 <?php
-    Yii::endProfile('VtrsTruckService.view.grid');
-}    
-?>
+    Yii::endProfile('vtrs_vtrc_id.view.grid');
+}
 
