@@ -87,7 +87,7 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
         
         //save dim data
         $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
-        $fdda->fdda_fret_id = $fixr->fixr_period_fret_id;
+        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
         $fdda->setFdm2Id($vtdt->vtdt_id, $vtdt->vtdt_name);
         $fdda->setFdm3Id($vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
         $fdda->fdda_date_from = $this->vtdc_issue_date;

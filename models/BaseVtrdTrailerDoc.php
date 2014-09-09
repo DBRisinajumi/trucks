@@ -14,6 +14,7 @@
  * @property string $vtrd_notes
  *
  * Relations of table "vtrd_trailer_doc" available as properties of the model:
+ * @property FixrFiitXRef $vtrdFixr
  * @property VtdtTruckDocType $vtrdVtdt
  * @property VtrlTrailer $vtrdVtrl
  */
@@ -65,6 +66,7 @@ abstract class BaseVtrdTrailerDoc extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'vtrdFixr' => array(self::BELONGS_TO, 'FixrFiitXRef', 'vtrd_fixr_id'),
                 'vtrdVtdt' => array(self::BELONGS_TO, 'VtdtTruckDocType', 'vtrd_vtdt_id'),
                 'vtrdVtrl' => array(self::BELONGS_TO, 'VtrlTrailer', 'vtrd_vtrl_id'),
             )
@@ -94,7 +96,7 @@ abstract class BaseVtrdTrailerDoc extends CActiveRecord
         $criteria->compare('t.vtrd_id', $this->vtrd_id, true);
         $criteria->compare('t.vtrd_vtrl_id', $this->vtrd_vtrl_id);
         $criteria->compare('t.vtrd_vtdt_id', $this->vtrd_vtdt_id);
-        $criteria->compare('t.vtrd_fixr_id', $this->vtrd_fixr_id, true);
+        $criteria->compare('t.vtrd_fixr_id', $this->vtrd_fixr_id);
         $criteria->compare('t.vtrd_number', $this->vtrd_number, true);
         $criteria->compare('t.vtrd_issue_date', $this->vtrd_issue_date, true);
         $criteria->compare('t.vtrd_expire_date', $this->vtrd_expire_date, true);

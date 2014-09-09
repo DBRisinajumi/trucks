@@ -10,6 +10,8 @@ class m140908_201401_alter_vtrs extends CDbMigration
 	{
 		$this->execute("
             ALTER TABLE `vtrs_truck_service` ADD FOREIGN KEY (`vtrs_fixr_id`) REFERENCES `eu`.`fixr_fiit_x_ref`(`fixr_id`); 
+            ALTER TABLE `vtls_trailer_service` ADD FOREIGN KEY (`vtls_fixr_id`) REFERENCES `eu`.`fixr_fiit_x_ref`(`fixr_id`); 
+            ALTER TABLE `vtrd_trailer_doc` ADD FOREIGN KEY (`vtrd_fixr_id`) REFERENCES `eu`.`fixr_fiit_x_ref`(`fixr_id`); 
 
 
         ");

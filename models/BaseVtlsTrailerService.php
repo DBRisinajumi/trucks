@@ -11,6 +11,7 @@
  * @property string $vtls_fixr_id
  *
  * Relations of table "vtls_trailer_service" available as properties of the model:
+ * @property FixrFiitXRef $vtlsFixr
  * @property VtrlTrailer $vtlsVtrl
  * @property VsrvServices $vtlsVsrv
  */
@@ -61,6 +62,7 @@ abstract class BaseVtlsTrailerService extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'vtlsFixr' => array(self::BELONGS_TO, 'FixrFiitXRef', 'vtls_fixr_id'),
                 'vtlsVtrl' => array(self::BELONGS_TO, 'VtrlTrailer', 'vtls_vtrl_id'),
                 'vtlsVsrv' => array(self::BELONGS_TO, 'VsrvServices', 'vtls_vsrv_id'),
             )
@@ -88,7 +90,7 @@ abstract class BaseVtlsTrailerService extends CActiveRecord
         $criteria->compare('t.vtls_vtrl_id', $this->vtls_vtrl_id);
         $criteria->compare('t.vtls_vsrv_id', $this->vtls_vsrv_id);
         $criteria->compare('t.vtls_notes', $this->vtls_notes, true);
-        $criteria->compare('t.vtls_fixr_id', $this->vtls_fixr_id, true);
+        $criteria->compare('t.vtls_fixr_id', $this->vtls_fixr_id);
 
 
         return $criteria;
