@@ -72,7 +72,7 @@ class VtrsTruckService extends BaseVtrsTruckService
             return;
         }
         
-        //meklee periodu
+        //get period
         $attributes = array(
             'fped_fixr_id' => $fixr->fixr_id,
         );
