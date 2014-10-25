@@ -1,15 +1,12 @@
 <?php
 
 // auto-loading
-Yii::setPathOfAlias('VtcoTrucOdoChanges', dirname(__FILE__));
-Yii::import('VtcoTrucOdoChanges.*');
+Yii::setPathOfAlias('VodoOdometer', dirname(__FILE__));
+Yii::import('VodoOdometer.*');
 
-class VtcoTrucOdoChanges extends BaseVtcoTrucOdoChanges
+class VodoOdometer extends BaseVodoOdometer
 {
 
-    var $vtco_date;
-    var $vtco_time;
-    
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
     public static function model($className = __CLASS__)
     {
@@ -20,7 +17,6 @@ class VtcoTrucOdoChanges extends BaseVtcoTrucOdoChanges
     {
         return parent::init();
     }
-    
 
     public function getItemLabel()
     {
@@ -38,9 +34,11 @@ class VtcoTrucOdoChanges extends BaseVtcoTrucOdoChanges
     public function rules()
     {
         return array_merge(
-            parent::rules(), array(
-                array('vtco_date, vtco_time', 'required'),
-            )
+            parent::rules()
+        /* , array(
+          array('column1, column2', 'rule1'),
+          array('column3', 'rule2'),
+          ) */
         );
     }
 

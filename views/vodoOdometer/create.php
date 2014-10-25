@@ -1,16 +1,18 @@
 <?php
 $this->setPageTitle(
-    Yii::t('TrucksModule.model', 'Vtro Truck Odometer')
+    Yii::t('TrucksModule.model', 'Vodo Odometer')
     . ' - '
     . Yii::t('TrucksModule.crud', 'Create')
 );
 
+$this->breadcrumbs[Yii::t('TrucksModule.model', 'Vodo Odometers')] = array('admin');
+$this->breadcrumbs[] = Yii::t('TrucksModule.crud', 'Create');
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
     #"label"=>Yii::t("TrucksModule.crud","Cancel"),
     "icon"=>"chevron-left",
     "size"=>"large",
     "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
-    "visible"=>(Yii::app()->user->checkAccess("Trucks.VtroTruckOdometer.*") || Yii::app()->user->checkAccess("Trucks.VtroTruckOdometer.View")),
+    "visible"=>(Yii::app()->user->checkAccess("Trucks.VodoOdometer.*") || Yii::app()->user->checkAccess("Trucks.VodoOdometer.View")),
     "htmlOptions"=>array(
                     "class"=>"search-button",
                     "data-toggle"=>"tooltip",
@@ -19,13 +21,14 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
  ),true);
     
 ?>
+<?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
 <div class="clearfix">
     <div class="btn-toolbar pull-left">
         <div class="btn-group"><?php echo $cancel_buton;?></div>
         <div class="btn-group">
             <h1>
-                <i class="icon-tachometer"></i>
-                <?php echo Yii::t('TrucksModule.model','Create Vtro Truck Odometer');?>            </h1>
+                <i class=""></i>
+                <?php echo Yii::t('TrucksModule.model','Create Vodo Odometer');?>            </h1>
         </div>
     </div>
 </div>
@@ -45,7 +48,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                        "htmlOptions"=> array(
                             "onclick"=>"$('.crud-form form').submit();",
                        ),
-                       "visible"=> (Yii::app()->user->checkAccess("Trucks.VtroTruckOdometer.*") || Yii::app()->user->checkAccess("Trucks.VtroTruckOdometer.View"))
+                       "visible"=> (Yii::app()->user->checkAccess("Trucks.VodoOdometer.*") || Yii::app()->user->checkAccess("Trucks.VodoOdometer.View"))
                     )); 
                     ?>
                   

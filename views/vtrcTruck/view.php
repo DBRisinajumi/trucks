@@ -33,7 +33,7 @@
     <div class="span4">
         <?php
         $this->widget(
-            'TbDetailView',
+            'TbAceDetailView',
             array(
                 'data' => $model,
                 'attributes' => array(
@@ -153,7 +153,23 @@ array(
                             true
                         )
                     ),
-array(
+                    array(
+                        'name' => 'vtrc_abs_odo_calc_type',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'EditableField',
+                            array(
+                                'model' => $model,
+                                'type' => 'select',
+                                'url' => $this->createUrl('/trucks/vtrcTruck/editableSaver'),
+                                'source' => $model->getEnumFieldLabels('vtrc_abs_odo_calc_type'),
+                                'attribute' => 'vtrc_abs_odo_calc_type',
+                                //'placement' => 'right',
+                            ),
+                            true
+                        )
+                    ),                    
+                    array(
                         'name' => 'vtrc_notes',
                         'type' => 'raw',
                         'value' => $this->widget(
