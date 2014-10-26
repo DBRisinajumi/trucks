@@ -1,14 +1,7 @@
 <?php
-$this->setPageTitle(
-    Yii::t('TrucksModule.model', 'Vodo Odometer')
-    . ' - '
-    . Yii::t('TrucksModule.crud', 'Create')
-);
+$this->setPageTitle(Yii::t('TrucksModule.model', 'Registre odometer readong'));
 
-$this->breadcrumbs[Yii::t('TrucksModule.model', 'Vodo Odometers')] = array('admin');
-$this->breadcrumbs[] = Yii::t('TrucksModule.crud', 'Create');
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
-    #"label"=>Yii::t("TrucksModule.crud","Cancel"),
     "icon"=>"chevron-left",
     "size"=>"large",
     "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
@@ -21,14 +14,15 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
  ),true);
     
 ?>
-<?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
+
 <div class="clearfix">
     <div class="btn-toolbar pull-left">
         <div class="btn-group"><?php echo $cancel_buton;?></div>
         <div class="btn-group">
             <h1>
-                <i class=""></i>
-                <?php echo Yii::t('TrucksModule.model','Create Vodo Odometer');?>            </h1>
+                <i class="icon-dashboard "></i>
+                <?php echo Yii::t('TrucksModule.model','Registre odometer readong');?>
+            </h1>
         </div>
     </div>
 </div>

@@ -110,7 +110,7 @@ $this->widget('TbGridView',
 
             array(
                 'class' => 'editable.EditableColumn',
-                'name' => 'vodo_abs_ado',
+                'name' => 'vodo_abs_odo',
                 'editable' => array(
                     'url' => $this->createUrl('/trucks/vodoOdometer/editableSaver'),
                     //'placement' => 'right',

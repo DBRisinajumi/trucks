@@ -1,16 +1,6 @@
 <?php
-    $this->setPageTitle(
-        Yii::t('TrucksModule.model', 'Vodo Odometer')
-        . ' - '
-        . Yii::t('TrucksModule.crud', 'View')
-        . ': '   
-        . $model->getItemLabel()            
-);    
-$this->breadcrumbs[Yii::t('TrucksModule.model','Vodo Odometers')] = array('admin');
-$this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id' => $model->{$model->tableSchema->primaryKey});
-$this->breadcrumbs[] = Yii::t('TrucksModule.crud', 'View');
+$this->setPageTitle(Yii::t('TrucksModule.model', 'Odometer reading'));    
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
-    #"label"=>Yii::t("TrucksModule.crud","Cancel"),
     "icon"=>"chevron-left",
     "size"=>"large",
     "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
@@ -23,14 +13,15 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
  ),true);
     
 ?>
-<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+
 <div class="clearfix">
     <div class="btn-toolbar pull-left">
         <div class="btn-group"><?php echo $cancel_buton;?></div>
         <div class="btn-group">
             <h1>
-                <i class=""></i>
-                <?php echo Yii::t('TrucksModule.model','Vodo Odometer');?>                <small><?php echo$model->itemLabel?></small>
+                <i class="icon-dashboard "></i>
+                <?php echo Yii::t('TrucksModule.model','Odometer reading');?>  
+                
             </h1>
         </div>
         <div class="btn-group">
@@ -56,31 +47,15 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
 
 <div class="row">
     <div class="span5">
-        <h2>
-            <?php echo Yii::t('TrucksModule.crud','Data')?>            <small>
-                #<?php echo $model->vodo_id ?>            </small>
-        </h2>
 
         <?php
         $this->widget(
-            'TbDetailView',
+            'TbAceDetailView',
             array(
                 'data' => $model,
                 'attributes' => array(
                 
-                array(
-                    'name' => 'vodo_id',
-                    'type' => 'raw',
-                    'value' => $this->widget(
-                        'EditableField',
-                        array(
-                            'model' => $model,
-                            'attribute' => 'vodo_id',
-                            'url' => $this->createUrl('/trucks/vodoOdometer/editableSaver'),
-                        ),
-                        true
-                    )
-                ),
+
 
                 array(
                     'name' => 'vodo_vtrc_id',
@@ -191,13 +166,13 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                 ),
 
                 array(
-                    'name' => 'vodo_abs_ado',
+                    'name' => 'vodo_abs_odo',
                     'type' => 'raw',
                     'value' => $this->widget(
                         'EditableField',
                         array(
                             'model' => $model,
-                            'attribute' => 'vodo_abs_ado',
+                            'attribute' => 'vodo_abs_odo',
                             'url' => $this->createUrl('/trucks/vodoOdometer/editableSaver'),
                         ),
                         true
@@ -249,9 +224,18 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
         )); ?>
     </div>
 
-
-    <div class="span7">
-        <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model, 'ajax' => false,)); ?>    </div>
 </div>
 
-<?php echo $cancel_buton; ?>
+<?php 
+$cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
+    "icon"=>"chevron-left",
+    "size"=>"large",
+    "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
+    "visible"=>(Yii::app()->user->checkAccess("Trucks.VodoOdometer.*") || Yii::app()->user->checkAccess("Trucks.VodoOdometer.View")),
+    "htmlOptions"=>array(
+                    "class"=>"search-button",
+                    "data-toggle"=>"tooltip",
+                    "title"=>Yii::t("TrucksModule.crud","Back"),
+                )
+ ),true);
+echo $cancel_buton;

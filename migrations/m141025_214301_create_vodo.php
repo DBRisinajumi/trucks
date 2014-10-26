@@ -18,7 +18,7 @@ class m141025_214301_create_vodo extends CDbMigration
           `vodo_end_odo` SMALLINT UNSIGNED,
           `vodo_end_datetime` DATETIME,
           `vodo_run` SMALLINT UNSIGNED COMMENT 'mileage',
-          `vodo_abs_ado` MEDIUMINT UNSIGNED COMMENT 'absolut odmeter',
+          `vodo_abs_odo` MEDIUMINT UNSIGNED COMMENT 'absolut odmeter',
           `vodo_notes` TEXT,
           `vodo_ref_model` VARCHAR(20) CHARSET latin1 COMMENT 'referenc model name',
           `vodo_ref_id` INT UNSIGNED COMMENT 'refernc model pk value',

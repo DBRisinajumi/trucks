@@ -56,7 +56,7 @@ abstract class BaseVtrcTruck extends CActiveRecord
                 array('vtrc_car_reg_nr', 'length', 'max' => 20),
                 array('vtrc_car_certificate_number', 'length', 'max' => 100),
                 array('vtrc_notes', 'safe'),
-                array('vtrc_abs_odo_calc_type', 'in', 'range' => array('RUN','ODO')),
+                array('vtrc_abs_odo_calc_type', 'in', 'range' => array(self::VTRC_ABS_ODO_CALC_TYPE_RUN, self::VTRC_ABS_ODO_CALC_TYPE_ODO)),
                 array('vtrc_id, vtrc_cmmp_id, vtrc_car_reg_nr, vtrc_year, vtrc_car_certificate_number, vtrc_self_weight, vtrc_fuel_consumption, vtrc_year_mileage, vtrc_leased_from_cmmp_id, vtrc_purchase_value, vtrc_notes, vtrc_abs_odo_calc_type', 'safe', 'on' => 'search'),
             )
         );

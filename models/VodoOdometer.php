@@ -52,4 +52,20 @@ class VodoOdometer extends BaseVodoOdometer
         ));
     }
 
+    /**
+     * get last reading before requestd date
+     * @param int $vtrc_id
+     * @param date $date
+     * @return VodoOdometer record
+     */
+    public static function getOdoByDate($vtrc_id,$date){
+        
+        $criteria = new CDbCriteria;
+        $criteria->compare('vodo_vtrc_id',$vtrc_id);
+        $criteria->condition = "vodo_end_datetime < :date";
+        $criteria->params = array(':date' => $date);
+        
+        return VodoOdometer::model()->find($criteria);
+        
+    }
 }

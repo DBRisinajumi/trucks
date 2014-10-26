@@ -165,14 +165,14 @@
                     <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model, 'vodo_abs_ado') ?>
+                            <?php echo $form->labelEx($model, 'vodo_abs_odo') ?>
                         </div>
                         <div class='controls'>
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
-                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vodo_abs_ado')) != 'tooltip.vodo_abs_ado')?$t:'' ?>'>
+                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vodo_abs_odo')) != 'tooltip.vodo_abs_odo')?$t:'' ?>'>
                                 <?php
-                            echo $form->textField($model, 'vodo_abs_ado');
-                            echo $form->error($model,'vodo_abs_ado')
+                            echo $form->textField($model, 'vodo_abs_odo');
+                            echo $form->error($model,'vodo_abs_odo')
                             ?>                            </span>
                         </div>
                     </div>

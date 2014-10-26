@@ -12,12 +12,13 @@
  * @property integer $vodo_end_odo
  * @property string $vodo_end_datetime
  * @property integer $vodo_run
- * @property integer $vodo_abs_ado
+ * @property integer $vodo_abs_odo
  * @property string $vodo_notes
  * @property string $vodo_ref_model
  * @property string $vodo_ref_id
  *
  * Relations of table "vodo_odometer" available as properties of the model:
+ * @property FpeoPeriodOdo[] $fpeoPeriodOdos
  * @property VtrcTruck $vodoVtrc
  */
 abstract class BaseVodoOdometer extends CActiveRecord
@@ -47,12 +48,13 @@ abstract class BaseVodoOdometer extends CActiveRecord
         return array_merge(
             parent::rules(), array(
                 array('vodo_vtrc_id, vodo_type', 'required'),
-                array('vodo_start_odo, vodo_start_datetime, vodo_end_odo, vodo_end_datetime, vodo_run, vodo_abs_ado, vodo_notes, vodo_ref_model, vodo_ref_id', 'default', 'setOnEmpty' => true, 'value' => null),
-                array('vodo_vtrc_id, vodo_start_odo, vodo_end_odo, vodo_run, vodo_abs_ado', 'numerical', 'integerOnly' => true),
-                array('vodo_type, vodo_ref_id', 'length', 'max' => 10),
+                array('vodo_start_odo, vodo_start_datetime, vodo_end_odo, vodo_end_datetime, vodo_run, vodo_abs_odo, vodo_notes, vodo_ref_model, vodo_ref_id', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('vodo_vtrc_id, vodo_start_odo, vodo_end_odo, vodo_run, vodo_abs_odo', 'numerical', 'integerOnly' => true),
                 array('vodo_ref_model', 'length', 'max' => 20),
+                array('vodo_ref_id', 'length', 'max' => 10),
                 array('vodo_start_datetime, vodo_end_datetime, vodo_notes', 'safe'),
-                array('vodo_id, vodo_vtrc_id, vodo_type, vodo_start_odo, vodo_start_datetime, vodo_end_odo, vodo_end_datetime, vodo_run, vodo_abs_ado, vodo_notes, vodo_ref_model, vodo_ref_id', 'safe', 'on' => 'search'),
+                array('vodo_type', 'in', 'range' => array(self::VODO_TYPE_READING, self::VODO_TYPE_VOYAGE_RUN, self::VODO_TYPE_VOYAGE_ODO, self::VODO_TYPE_ODO_CHANGE)),
+                array('vodo_id, vodo_vtrc_id, vodo_type, vodo_start_odo, vodo_start_datetime, vodo_end_odo, vodo_end_datetime, vodo_run, vodo_abs_odo, vodo_notes, vodo_ref_model, vodo_ref_id', 'safe', 'on' => 'search'),
             )
         );
     }
@@ -77,6 +79,7 @@ abstract class BaseVodoOdometer extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'fpeoPeriodOdos' => array(self::HAS_MANY, 'FpeoPeriodOdo', 'fpeo_vodo_id'),
                 'vodoVtrc' => array(self::BELONGS_TO, 'VtrcTruck', 'vodo_vtrc_id'),
             )
         );
@@ -93,7 +96,7 @@ abstract class BaseVodoOdometer extends CActiveRecord
             'vodo_end_odo' => Yii::t('TrucksModule.model', 'Vodo End Odo'),
             'vodo_end_datetime' => Yii::t('TrucksModule.model', 'Vodo End Datetime'),
             'vodo_run' => Yii::t('TrucksModule.model', 'Vodo Run'),
-            'vodo_abs_ado' => Yii::t('TrucksModule.model', 'Vodo Abs Ado'),
+            'vodo_abs_odo' => Yii::t('TrucksModule.model', 'Vodo Abs Odo'),
             'vodo_notes' => Yii::t('TrucksModule.model', 'Vodo Notes'),
             'vodo_ref_model' => Yii::t('TrucksModule.model', 'Vodo Ref Model'),
             'vodo_ref_id' => Yii::t('TrucksModule.model', 'Vodo Ref'),
@@ -156,7 +159,7 @@ abstract class BaseVodoOdometer extends CActiveRecord
         $criteria->compare('t.vodo_end_odo', $this->vodo_end_odo);
         $criteria->compare('t.vodo_end_datetime', $this->vodo_end_datetime, true);
         $criteria->compare('t.vodo_run', $this->vodo_run);
-        $criteria->compare('t.vodo_abs_ado', $this->vodo_abs_ado);
+        $criteria->compare('t.vodo_abs_odo', $this->vodo_abs_odo);
         $criteria->compare('t.vodo_notes', $this->vodo_notes, true);
         $criteria->compare('t.vodo_ref_model', $this->vodo_ref_model, true);
         $criteria->compare('t.vodo_ref_id', $this->vodo_ref_id, true);
