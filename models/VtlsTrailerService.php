@@ -61,40 +61,47 @@ class VtlsTrailerService extends BaseVtlsTrailerService
 
     public function afterSave() {
         
-        /**
-         * registre transaction in dimensions
-         */
-        
-        //get models
-        $fixr = $this->vtlsFixr;
-        if(empty($fixr->fixr_period_fret_id)){
-            parent::afterSave();
-            return;
-        }
-        
-        //get period
-        $attributes = array(
-            'fped_fixr_id' => $fixr->fixr_id,
-        );
-        $fped = FpedPeriodDate::model()->findByAttributes($attributes);
-        if(empty($fped)){
-            parent::afterSave();
-            return;
-        }
+//        /**
+//         * registre transaction in dimensions
+//         */
+//        
+//        //get models
+//        $fixr = $this->vtlsFixr;
+//        if(empty($fixr->fixr_period_fret_id)){
+//            parent::afterSave();
+//            return;
+//        }
+//        
+//        //get period
+//        $attributes = array(
+//            'fped_fixr_id' => $fixr->fixr_id,
+//        );
+//        $fped = FpedPeriodDate::model()->findByAttributes($attributes);
+//        if(empty($fped)){
+//            parent::afterSave();
+//            return;
+//        }
+//        
+//        $vsrv = $this->vtlsVsrv;
+//        $vtrl = $this->vtlsVtrl;
+//        
+//        //save dim data
+//        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
+//        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
+//        $fdda->setFdm2Id($vsrv->vsrv_id, $vsrv->vsrv_name);
+//        $fdda->setFdm3Id($vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
+//        $fdda->fdda_date_from = $fped->fped_start_date;
+//        $fdda->fdda_date_to = $fped->fped_end_date;
+//        $fdda->save();
         
         $vsrv = $this->vtlsVsrv;
-        $vtrl = $this->vtlsVtrl;
+        $vtrl = $this->vtlsVtrl;        
         
-        //save dim data
-        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
-        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
-        $fdda->setFdm2Id($vsrv->vsrv_id, $vsrv->vsrv_name);
-        $fdda->setFdm3Id($vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
-        $fdda->fdda_date_from = $fped->fped_start_date;
-        $fdda->fdda_date_to = $fped->fped_end_date;
-        $fdda->save();
+        //registre transaction in dimensions
+        FddaDimData::registre($this->vtls_fixr_id,$vsrv->vsrv_id, $vsrv->vsrv_name,$vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
         
         parent::afterSave();
+        
     }    
     
     

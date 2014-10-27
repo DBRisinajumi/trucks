@@ -61,30 +61,53 @@ class VtrdTrailerDoc extends BaseVtrdTrailerDoc
     
     public function afterSave() {
         
-        /**
-         * registre transaction in dimensions
-         */
-        
-        //get models
-        $fixr = $this->vtrdFixr;
-        if(empty($fixr->fixr_period_fret_id)){
-            parent::afterSave();
-            return;
-        }
+//        /**
+//         * registre transaction in dimensions
+//         */
+//        
+//        //get models
+//        $fixr = $this->vtrdFixr;
+//        if(empty($fixr->fixr_period_fret_id)){
+//            parent::afterSave();
+//            return;
+//        }
+//        
+//        $vtdt = $this->vtrdVtdt;
+//        $vtrl = $this->vtrdVtrl;
+//        
+//        //save dim data
+//        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
+//        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
+//        $fdda->setFdm2Id($vtdt->vtdt_id, $vtdt->vtdt_name);
+//        $fdda->setFdm3Id($vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
+//        $fdda->fdda_date_from = $this->vtrd_issue_date;
+//        $fdda->fdda_date_to = $this->vtrd_expire_date;
+//        $fdda->save();
         
         $vtdt = $this->vtrdVtdt;
-        $vtrl = $this->vtrdVtrl;
+        $vtrl = $this->vtrdVtrl;        
         
-        //save dim data
-        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
-        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
-        $fdda->setFdm2Id($vtdt->vtdt_id, $vtdt->vtdt_name);
-        $fdda->setFdm3Id($vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
-        $fdda->fdda_date_from = $this->vtrd_issue_date;
-        $fdda->fdda_date_to = $this->vtrd_expire_date;
-        $fdda->save();
+        //registre transaction in dimensions
+        FddaDimData::registre($this->vtrd_fixr_id,$vtdt->vtdt_id, $vtdt->vtdt_name,$vtrl->vtrl_id, $vtrl->vtrl_reg_nr);
+        
         
         parent::afterSave();
     }      
+    
+    /**
+     * common name for FddaDimData
+     * @return date
+     */
+    public function getFddaDateFrom(){
+        return $this->vtrd_issue_date;
+    }
+
+    /**
+     * common name for FddaDimData
+     * @return date
+     */    
+    public function getFddaDateTo(){
+        return $this->vtrd_expire_date;
+    }     
 
 }

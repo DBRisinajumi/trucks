@@ -75,26 +75,47 @@ class VtdcTruckDoc extends BaseVtdcTruckDoc
          * registre transaction in dimensions
          */
         
-        //get models
-        $fixr = $this->vtdcFixr;
-        if(empty($fixr->fixr_period_fret_id)){
-            parent::afterSave();
-            return;
-        }
+//        //get models
+//        $fixr = $this->vtdcFixr;
+//        if(empty($fixr->fixr_period_fret_id)){
+//            parent::afterSave();
+//            return;
+//        }
+//        
+//        $vtdt = $this->vtdcVtdt;
+//        $vtrc = $this->vtdcVtrc;
+//        
+//        //save dim data
+//        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
+//        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
+//        $fdda->setFdm2Id($vtdt->vtdt_id, $vtdt->vtdt_name);
+//        $fdda->setFdm3Id($vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
+//        $fdda->fdda_date_from = $this->vtdc_issue_date;
+//        $fdda->fdda_date_to = $this->vtdc_expire_date;
+//        $fdda->save();
         
         $vtdt = $this->vtdcVtdt;
         $vtrc = $this->vtdcVtrc;
         
-        //save dim data
-        $fdda = FddaDimData::findByFixrId($fixr->fixr_id);
-        $fdda->fdda_fret_id = $fixr->fixr_position_fret_id;
-        $fdda->setFdm2Id($vtdt->vtdt_id, $vtdt->vtdt_name);
-        $fdda->setFdm3Id($vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
-        $fdda->fdda_date_from = $this->vtdc_issue_date;
-        $fdda->fdda_date_to = $this->vtdc_expire_date;
-        $fdda->save();
+        FddaDimData::registre($this->vtdc_fixr_id,$vtdt->vtdt_id, $vtdt->vtdt_name,$vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
         
         parent::afterSave();
     }    
+    
+    /**
+     * common name for FddaDimData
+     * @return date
+     */
+    public function getFddaDateFrom(){
+        return $this->vtdc_issue_date;
+    }
+
+    /**
+     * common name for FddaDimData
+     * @return date
+     */    
+    public function getFddaDateTo(){
+        return $this->vtdc_expire_date;
+    }     
 
 }
