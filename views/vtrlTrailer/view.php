@@ -30,7 +30,7 @@ $cancel_button = $this->widget("bootstrap.widgets.TbButton", array(
 
         <?php
         $this->widget(
-            'TbDetailView',
+            'TbAceDetailView',
             array(
                 'data' => $model,
                 'attributes' => array(
@@ -102,17 +102,17 @@ $cancel_button = $this->widget("bootstrap.widgets.TbButton", array(
                     ),
            ),
         ));
+        ?>
+        <div class="space-12"></div>            
+        <?php        
         $this->widget('d2FilesWidget',array('module'=>$this->module->id, 'model'=>$model)); 
         ?>
     </div>
 
-
-
     <div class="span8">
-        <div class="well">
-            <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model)); ?>        </div>
-    </div>
+         <?php $this->renderPartial('_view-relations_grids',array('modelMain' => $model, 'ajax' => false,)); ?>    
+    </div>         
 
 </div>
 
-<?php echo $cancel_button?>
+<?php echo $cancel_button;

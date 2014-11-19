@@ -184,7 +184,9 @@ array(
                     ),
            ),
         )); 
-        
+        ?>
+        <div class="space-12"></div>            
+        <?php
         $this->widget('d2FilesWidget',array('module'=>$this->module->id, 'model'=>$model)); 
         ?>        
     </div>
@@ -207,4 +209,3 @@ array(
                                        "title"=>Yii::t("TrucksModule.crud_static","List"),
                                    )
                     ));
- ?>
