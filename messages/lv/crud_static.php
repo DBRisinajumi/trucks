@@ -17,10 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Add new record' => 'Pievienot Jaunu Ierakstu',
-  'List' => 'Saraksts',
-  'Requested closed data.' => 'Pieprasīti Slēgti dati',
-  'View Mode' => 'Skatīšanās Režīms',
+  'Back' => 'Atpakaļ',
+  'Add new record' => '@@Pievienot Jaunu Ierakstu@@',
   'Cancel' => 'Atcelt',
   'Create' => 'Izveidot',
   'Data' => 'Dati',
@@ -28,11 +26,14 @@ return array (
   'Do you want to delete this item?' => 'Vai patiešam vēlaties šo ierakstu dzēst',
   'Fields with <span class="required">*</span> are required.' => 'Atzīmētie ar <span class="required">*</span> ir obligāti.',
   'Invalid request. Please do not repeat this request again.' => 'Kļūdains pieprasījums.',
+  'List' => 'Saraksts',
   'Manage' => 'Saraksts',
   'Relations' => 'Relācijas',
+  'Requested closed data.' => 'Pieprasīti Slēgti dati',
   'Save' => 'Saglabāt',
   'Search' => 'Meklēt',
   'The requested page does not exist.' => 'Pieprasītā lapa neeksistē',
   'Update' => 'Labot',
   'View' => 'Skatīt',
+  'View Mode' => 'Skatīšanās Režīms',
 );

@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Add new record' => 'Pievienot jaunu ierakstu',
+  'Back' => 'Atpakaļ',
+  'Data' => 'Dati',
+  'View Mode' => '',
   'Cancel' => 'Atcelt',
   'Create' => 'Izveidot',
   'Delete' => 'Dzēst',

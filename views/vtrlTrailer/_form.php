@@ -37,7 +37,33 @@
                     </div>
                     <?php  ?>
                                     
-                                    
+                    <?php  ?>
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'vtrl_vtrt_id') ?>
+                        </div>
+                        <div class='controls'>
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('TrucksModule.model', 'tooltip.vtrl_vtrt_id')) != 'tooltip.vtrl_vtrt_id')?$t:'' ?>'>
+                                <?php
+                            $this->widget(
+                                '\GtcRelation',
+                                array(
+                                    'model' => $model,
+                                    'relation' => 'vtrlVtrt',
+                                    'fields' => 'vtrt_name',
+                                    'allowEmpty' => true,
+                                    'style' => 'dropdownlist',
+                                    'htmlOptions' => array(
+                                        'checkAll' => 'all'
+                                    ),
+                                )
+                            );
+                            echo $form->error($model,'vtrl_vtrt_id')
+                            ?>                            </span>
+                        </div>
+                    </div>
+                    <?php  ?>                                     
                     <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>

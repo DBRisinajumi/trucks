@@ -8,14 +8,50 @@ if (!$ajax) {
 
 if (!$ajax || $ajax == 'vtdc-truck-doc-grid') {
     Yii::beginProfile('vtdc_vtrc_id.view.grid');
+    
+    $grid_error = '';
+    $grid_warning = '';
+    
+    if (empty($modelMain->vtdcTruckDocs)) {
+        $model = new VtdcTruckDoc;
+        $model->vtdc_vtrc_id = $modelMain->primaryKey;
+        if(!$model->save()){
+            $grid_error .= implode('<br/>',$model->errors);
+        }
+        unset($model);
+    }       
     ?>
 
     <div class="table-header">
-        <?= Yii::t('TrucksModule.model', 'Vtdc Truck Doc') ?>
+        <?php 
+            echo Yii::t('TrucksModule.model', 'Vtdc Truck Doc');
+            $this->widget(
+                    'bootstrap.widgets.TbButton',
+                    array(
+                        'buttonType' => 'ajaxButton', 
+                        'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                        'size' => 'mini',
+                        'icon' => 'icon-plus',
+                        'url' => array(
+                            '//trucks/vtdcTruckDoc/ajaxCreate',
+                            'field' => 'vtdc_vtrc_id',
+                            'value' => $modelMain->primaryKey,
+                            'ajax' => 'vtdc-truck-doc-grid',
+                        ),
+                        'ajaxOptions' => array(
+                                'success' => 'function(html) {$.fn.yiiGridView.update(\'vtdc-truck-doc-grid\');}'
+                                ),
+                        'htmlOptions' => array(
+                            'title' => Yii::t('TrucksModule.crud', 'Add new record'),
+                            'data-toggle' => 'tooltip',
+                        ),                 
+                    )
+             );                     
+            ?>
     </div>
 
     <?php
-    $grid_warning = $grid_error = '';
+
     if (empty($modelMain->vtdcTruckDocs)) {
         $grid_warning = Yii::t('TrucksModule.model', 'Truck documents add by attaching it to Invoice items as expense position!');
     }    
@@ -33,7 +69,7 @@ if (!$ajax || $ajax == 'vtdc-truck-doc-grid') {
     }    
 
     // render grid view
-    if (!empty($modelMain->vtdcTruckDocs)) {
+    //if (!empty($modelMain->vtdcTruckDocs)) {
         
         $model = new VtdcTruckDoc();
         $model->vtdc_vtrc_id = $modelMain->primaryKey;
@@ -57,16 +93,6 @@ if (!$ajax || $ajax == 'vtdc-truck-doc-grid') {
                     //'placement' => 'right',
                     )
                 ),
-//            array(
-//                'class' => 'editable.EditableColumn',
-//                'name' => 'vtdc_fixr_id',
-//                'editable' => array(
-//                    'type' => 'select',
-//                    'url' => $this->createUrl('//trucks/vtdcTruckDoc/editableSaver'),
-//                    'source' => CHtml::listData(FixrFiitXRef::model()->findAll(array('limit' => 1000)), 'fixr_id', 'itemLabel'),
-//                    //'placement' => 'right',
-//                )
-//            ),
                 array(
                     //varchar(50)
                     'class' => 'editable.EditableColumn',
@@ -103,34 +129,65 @@ if (!$ajax || $ajax == 'vtdc-truck-doc-grid') {
                     //'placement' => 'right',
                     )
                 ),
-//                array(
-//                    'class' => 'TbButtonColumn',
-//                    'buttons' => array(
-//                        'view' => array('visible' => 'FALSE'),
-//                        'update' => array('visible' => 'FALSE'),
-//                        'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrcTruck.DeletevtdcTruckDocs")'),
-//                    ),
-//                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtdcTruckDoc/delete", array("vtdc_id" => $data->vtdc_id))',
-//                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
-//                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
-//                ),
+                array(
+                    'header' => Yii::t('TrucksModule.model','Exp.Postion'),
+                    'type' => 'raw',
+                    'value' => '!empty($data->vtdc_fixr_id)?
+                                    $data->vtdcFixr->fixrFiit->fiitFinv->finv_number.
+                                    "&nbsp;".
+                                    CHtml::link(
+                                        "<i class=\"icon-external-link\"></i>",
+                                        array(
+                                            "/d2fixr/FixrFiitXRef/viewFinv",
+                                            "finv_id"=>$data->vtdcFixr->fixrFiit->fiit_finv_id
+                                        ),
+                                        array("target" => "_blank")
+                                    )
+                                    :"-"'
+
+                ),                
+                array(
+                    'class' => 'TbButtonColumn',
+                    'buttons' => array(
+                        'view' => array('visible' => 'FALSE'),
+                        'update' => array('visible' => 'FALSE'),
+                        'delete' => array('visible' => 'empty($data->vtdc_fixr_id) && Yii::app()->user->checkAccess("Trucks.VtrcTruck.DeletevtdcTruckDocs")'),
+                    ),
+                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtdcTruckDoc/delete", array("vtdc_id" => $data->vtdc_id))',
+                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
+                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
+                ),
             )
                 )
         );
     }
     Yii::endProfile('vtdc_vtrc_id.view.grid');
-}
+//}
 
 if (!$ajax || $ajax == 'vtrs-truck-service-grid') {
     Yii::beginProfile('vtrs_vtrc_id.view.grid');
-    $grid_warning = $grid_error = '';
+    
+    $grid_error = '';
+    $grid_warning = '';
+    
+    if (empty($modelMain->vtrsTruckServices)) {
+        $model = new VtrsTruckService;
+        $model->vtrs_vtrc_id = $modelMain->primaryKey;
+        if(!$model->save()){
+            $grid_error .= implode('<br/>',$model->errors);
+        }
+        unset($model);
+    }      
+    
     if (empty($modelMain->vtrsTruckServices)) {
         $grid_warning = Yii::t('TrucksModule.model', 'Truck services add by attaching it to Invoice items as expense position!');
     }    
     
     ?>
     <div class="table-header">
-        <?= Yii::t('TrucksModule.model', 'Vtrs Truck Service') ?>
+        <?
+        echo Yii::t('TrucksModule.model', 'Vtrs Truck Service');
+    ?>
     </div>
 
     <?php
@@ -148,7 +205,7 @@ if (!$ajax || $ajax == 'vtrs-truck-service-grid') {
     }    
    
     // render grid view
-    if (!empty($modelMain->vtrsTruckServices)) {
+//    if (!empty($modelMain->vtrsTruckServices)) {
         $model = new VtrsTruckService();
         $model->vtrs_vtrc_id = $modelMain->primaryKey;
         
@@ -171,15 +228,6 @@ if (!$ajax || $ajax == 'vtrs-truck-service-grid') {
                     //'placement' => 'right',
                     )
                 ),
-//            array(
-//                //int(10) unsigned
-//                'class' => 'editable.EditableColumn',
-//                'name' => 'vtrs_fixr_id',
-//                'editable' => array(
-//                    'url' => $this->createUrl('//trucks/vtrsTruckService/editableSaver'),
-//                    //'placement' => 'right',
-//                )
-//            ),
                 array(
                     'class' => 'editable.EditableColumn',
                     'name' => 'vtrs_notes',
@@ -189,21 +237,38 @@ if (!$ajax || $ajax == 'vtrs-truck-service-grid') {
                     //'placement' => 'right',
                     )
                 ),
-//                array(
-//                    'class' => 'TbButtonColumn',
-//                    'buttons' => array(
-//                        'view' => array('visible' => 'FALSE'),
-//                        'update' => array('visible' => 'FALSE'),
-//                        'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrcTruck.DeletevtrsTruckServices")'),
-//                    ),
-//                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtrsTruckService/delete", array("vtrs_id" => $data->vtrs_id))',
-//                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
-//                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
-//                ),
+                array(
+                    'header' => Yii::t('TrucksModule.model','Exp.Postion'),
+                    'type' => 'raw',
+                    'value' => '!empty($data->vtrs_fixr_id)?
+                                    $data->vtrsFixr->fixrFiit->fiitFinv->finv_number.
+                                    "&nbsp;".
+                                    CHtml::link(
+                                        "<i class=\"icon-external-link\"></i>",
+                                        array(
+                                            "/d2fixr/FixrFiitXRef/viewFinv",
+                                            "finv_id"=>$data->vtrsFixr->fixrFiit->fiit_finv_id
+                                        ),
+                                        array("target" => "_blank")
+                                    )
+                                    :"-"'
+                
+                ),                
+                array(
+                    'class' => 'TbButtonColumn',
+                    'buttons' => array(
+                        'view' => array('visible' => 'FALSE'),
+                        'update' => array('visible' => 'FALSE'),
+                        'delete' => array('visible' => 'empty($data->vtrs_fixr_id) && Yii::app()->user->checkAccess("Trucks.VtrcTruck.DeletevtrsTruckServices")'),
+                    ),
+                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtrsTruckService/delete", array("vtrs_id" => $data->vtrs_id))',
+                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
+                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
+                ),
             )
                 )
         );
     }
     Yii::endProfile('vtrs_vtrc_id.view.grid');
-}
+//}
 

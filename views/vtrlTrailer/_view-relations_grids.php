@@ -67,26 +67,32 @@ if (!$ajax || $ajax == 'vtls-trailer-service-grid') {
                     )
                 ),
                 array(
-                    'class' => 'editable.EditableColumn',
-                    'name' => 'vtls_fixr_id',
-                    'editable' => array(
-                        'type' => 'select',
-                        'url' => $this->createUrl('//trucks/vtlsTrailerService/editableSaver'),
-                        'source' => CHtml::listData(FixrFiitXRef::model()->findAll(array('limit' => 1000)), 'fixr_id', 'itemLabel'),
-                    //'placement' => 'right',
-                    )
-                ),
-                array(
-                    'class' => 'TbButtonColumn',
-                    'buttons' => array(
-                        'view' => array('visible' => 'FALSE'),
-                        'update' => array('visible' => 'FALSE'),
-                        'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtlsTrailerServices")'),
-                    ),
-                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtlsTrailerService/delete", array("vtls_id" => $data->vtls_id))',
-                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
-                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
-                ),
+                    'header' => Yii::t('TrucksModule.model','Exp.Postion'),
+                    'type' => 'raw',
+                    'value' => '!empty($data->vtls_fixr_id)?
+                                    $data->vtlsFixr->fixrFiit->fiitFinv->finv_number.
+                                    "&nbsp;".
+                                    CHtml::link(
+                                        "<i class=\"icon-external-link\"></i>",
+                                        array(
+                                            "/d2fixr/FixrFiitXRef/viewFinv",
+                                            "finv_id"=>$data->vtlsFixr->fixrFiit->fiit_finv_id
+                                        ),
+                                        array("target" => "_blank")
+                                    )
+                                    :"-"'
+                ),                     
+//                array(
+//                    'class' => 'TbButtonColumn',
+//                    'buttons' => array(
+//                        'view' => array('visible' => 'FALSE'),
+//                        'update' => array('visible' => 'FALSE'),
+//                        'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtlsTrailerServices")'),
+//                    ),
+//                    'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtlsTrailerService/delete", array("vtls_id" => $data->vtls_id))',
+//                    'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
+//                    'deleteButtonOptions' => array('data-toggle' => 'tooltip'),
+//                ),
             )
                 )
         );
@@ -100,10 +106,43 @@ if (!$ajax || $ajax == 'vtrd-trailer-doc-grid') {
 
     $grid_error = '';
     $grid_warning = '';
+    
+    if (empty($modelMain->vtrdTrailerDocs)) {
+        $model = new VtrdTrailerDoc;
+        $model->vtrd_vtrl_id = $modelMain->primaryKey;
+        if(!$model->save()){
+            $grid_error .= implode('<br/>',$model->errors);
+        }
+        unset($model);
+    } 
     ?>
 
     <div class="table-header">
-    <?= Yii::t('TrucksModule.model', 'Vtrd Trailer Doc') ?>
+    <?php 
+        echo Yii::t('TrucksModule.model', 'Vtrd Trailer Doc');
+        $this->widget(
+              'bootstrap.widgets.TbButton',
+              array(
+                  'buttonType' => 'ajaxButton', 
+                  'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                  'size' => 'mini',
+                  'icon' => 'icon-plus',
+                  'url' => array(
+                      '//trucks/vtrdTrailerDoc/ajaxCreate',
+                      'field' => 'vtrd_vtrl_id',
+                      'value' => $modelMain->primaryKey,
+                      'ajax' => 'vtrd-trailer-doc-grid',
+                  ),
+                  'ajaxOptions' => array(
+                          'success' => 'function(html) {$.fn.yiiGridView.update(\'vtrd-trailer-doc-grid\');}'
+                          ),
+                  'htmlOptions' => array(
+                      'title' => Yii::t('TrucksModule.crud', 'Add new record'),
+                      'data-toggle' => 'tooltip',
+                  ),                 
+              )
+          );                
+    ?>
     </div>
 
         <?php
@@ -122,7 +161,7 @@ if (!$ajax || $ajax == 'vtrd-trailer-doc-grid') {
         <div class="alert alert-warning"><?php echo $grid_warning ?></div>
         <?php
     }
-    if (!empty($modelMain->vtrdTrailerDocs)) {
+
         $model = new VtrdTrailerDoc();
         $model->vtrd_vtrl_id = $modelMain->primaryKey;
 
@@ -148,15 +187,22 @@ if (!$ajax || $ajax == 'vtrd-trailer-doc-grid') {
                     )
                 ),
                 array(
-                    'class' => 'editable.EditableColumn',
-                    'name' => 'vtrd_fixr_id',
-                    'editable' => array(
-                        'type' => 'select',
-                        'url' => $this->createUrl('//trucks/vtrdTrailerDoc/editableSaver'),
-                        'source' => CHtml::listData(FixrFiitXRef::model()->findAll(array('limit' => 1000)), 'fixr_id', 'itemLabel'),
-                    //'placement' => 'right',
-                    )
-                ),
+                    'header' => Yii::t('TrucksModule.model','Exp.Postion'),
+                    'type' => 'raw',
+                    'value' => '!empty($data->vtrd_fixr_id)?
+                                    $data->vtrdFixr->fixrFiit->fiitFinv->finv_number.
+                                    "&nbsp;".
+                                    CHtml::link(
+                                        "<i class=\"icon-external-link\"></i>",
+                                        array(
+                                            "/d2fixr/FixrFiitXRef/viewFinv",
+                                            "finv_id"=>$data->vtrdFixr->fixrFiit->fiit_finv_id
+                                        ),
+                                        array("target" => "_blank")
+                                    )
+                                    :"-"'
+                
+                ),                
                 array(
                     //varchar(50)
                     'class' => 'editable.EditableColumn',
@@ -198,7 +244,7 @@ if (!$ajax || $ajax == 'vtrd-trailer-doc-grid') {
                     'buttons' => array(
                         'view' => array('visible' => 'FALSE'),
                         'update' => array('visible' => 'FALSE'),
-                        'delete' => array('visible' => 'Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtrdTrailerDocs")'),
+                        'delete' => array('visible' => 'empty($data->vtrd_fixr_id) && Yii::app()->user->checkAccess("Trucks.VtrlTrailer.DeletevtrdTrailerDocs")'),
                     ),
                     'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/trucks/vtrdTrailerDoc/delete", array("vtrd_id" => $data->vtrd_id))',
                     'deleteConfirmation' => Yii::t('TrucksModule.crud', 'Do you want to delete this item?'),
@@ -207,6 +253,6 @@ if (!$ajax || $ajax == 'vtrd-trailer-doc-grid') {
             )
                 )
         );
-    }
+
     Yii::endProfile('vtrd_vtrl_id.view.grid');
 }    

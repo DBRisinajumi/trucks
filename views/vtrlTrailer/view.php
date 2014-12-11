@@ -47,7 +47,23 @@ $cancel_button = $this->widget("bootstrap.widgets.TbButton", array(
                             ),
                             true
                         )
-                    ),
+                ),
+                array(
+                    'name' => 'vtrl_vtrt_id',
+                    'type' => 'raw',
+                    'value' => $this->widget(
+                        'EditableField',
+                        array(
+                            'model' => $model,
+                            'type' => 'select',
+                            'url' => $this->createUrl('/trucks/vtrlTrailer/editableSaver'),
+                            'source' => CHtml::listData(VtrtTrailerType::model()->findAll(array('limit' => 1000)), 'vtrt_id', 'vtrt_name'),
+                            'attribute' => 'vtrl_vtrt_id',
+                            //'placement' => 'right',
+                        ),
+                        true
+                    )
+                ),                    
                 array(
                         'name' => 'vtrl_year',
                         'type' => 'raw',

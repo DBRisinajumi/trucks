@@ -59,6 +59,17 @@ $this->widget('TbGridView',
                 )
             ),
             array(
+                'class' => 'editable.EditableColumn',
+                'name' => 'vtrl_vtrt_id',
+                'editable' => array(
+                    'type' => 'select',
+                    'url' => $this->createUrl('/trucks/vtrlTrailer/editableSaver'),
+                    'source' => CHtml::listData(VtrtTrailerType::model()->findAll(array('limit' => 1000)), 'vtrt_id', 'vtrt_name'),
+                    //'placement' => 'right',
+                ),
+                'filter' => CHtml::listData(VtrtTrailerType::model()->findAll(array('limit' => 1000)), 'vtrt_id', 'vtrt_name'),
+            ),
+            array(
                 //smallint(5) unsigned
                 'class' => 'editable.EditableColumn',
                 'name' => 'vtrl_year',

@@ -17,7 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Add new record' => '',
+  'Back' => '',
   'Cancel' => '',
   'Create' => '',
   'Data' => '',
@@ -35,6 +35,7 @@ return array (
   'Update' => '',
   'View' => '',
   'View Mode' => '',
+  'Add new record' => '@@@@',
   'Advanced Search' => '@@@@',
   'Clear' => '@@@@',
   'Clear Search' => '@@@@',
