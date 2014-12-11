@@ -35,7 +35,7 @@ class VodoOdometer extends BaseVodoOdometer
         return array_merge(
                 parent::rules()
                 , array(
-            //array('vvoy_mileage,vvoy_odo_start,vvoy_odo_end', 'validateSqn', Yii::t('TrucksModule.mmodel', 'Try save incorect odometer values')),
+            //array('vvoy_mileage,vvoy_odo_start,vvoy_odo_end', 'validateSqn', Yii::t('TrucksModule.model', 'Try save incorect odometer values')),
                 )
         );
     }

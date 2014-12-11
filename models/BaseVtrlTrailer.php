@@ -6,6 +6,7 @@
  * Columns in table "vtrl_trailer" available as properties of the model:
  * @property integer $vtrl_id
  * @property string $vtrl_ccmp_id
+ * @property integer $vtrl_vtrt_id
  * @property string $vtrl_reg_nr
  * @property integer $vtrl_year
  * @property string $vtrl_certificate_number
@@ -15,6 +16,7 @@
  * Relations of table "vtrl_trailer" available as properties of the model:
  * @property VtlsTrailerService[] $vtlsTrailerServices
  * @property VtrdTrailerDoc[] $vtrdTrailerDocs
+ * @property VtrtTrailerType $vtrlVtrt
  * @property CcmpCompany $vtrlCcmp
  * @property VvoyVoyage[] $vvoyVoyages
  */
@@ -35,14 +37,14 @@ abstract class BaseVtrlTrailer extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('vtrl_ccmp_id, vtrl_reg_nr, vtrl_year, vtrl_certificate_number, vtrl_self_weight, vtrl_notes', 'default', 'setOnEmpty' => true, 'value' => null),
-                array('vtrl_year', 'numerical', 'integerOnly' => true),
+                array('vtrl_ccmp_id, vtrl_vtrt_id, vtrl_reg_nr, vtrl_year, vtrl_certificate_number, vtrl_self_weight, vtrl_notes', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('vtrl_vtrt_id, vtrl_year', 'numerical', 'integerOnly' => true),
                 array('vtrl_self_weight', 'numerical'),
                 array('vtrl_ccmp_id', 'length', 'max' => 10),
                 array('vtrl_reg_nr', 'length', 'max' => 20),
                 array('vtrl_certificate_number', 'length', 'max' => 100),
                 array('vtrl_notes', 'safe'),
-                array('vtrl_id, vtrl_ccmp_id, vtrl_reg_nr, vtrl_year, vtrl_certificate_number, vtrl_self_weight, vtrl_notes', 'safe', 'on' => 'search'),
+                array('vtrl_id, vtrl_ccmp_id, vtrl_vtrt_id, vtrl_reg_nr, vtrl_year, vtrl_certificate_number, vtrl_self_weight, vtrl_notes', 'safe', 'on' => 'search'),
             )
         );
     }
@@ -69,6 +71,7 @@ abstract class BaseVtrlTrailer extends CActiveRecord
             parent::relations(), array(
                 'vtlsTrailerServices' => array(self::HAS_MANY, 'VtlsTrailerService', 'vtls_vtrl_id'),
                 'vtrdTrailerDocs' => array(self::HAS_MANY, 'VtrdTrailerDoc', 'vtrd_vtrl_id'),
+                'vtrlVtrt' => array(self::BELONGS_TO, 'VtrtTrailerType', 'vtrl_vtrt_id'),
                 'vtrlCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'vtrl_ccmp_id'),
                 'vvoyVoyages' => array(self::HAS_MANY, 'VvoyVoyage', 'vvoy_vtrl_id'),
             )
@@ -80,6 +83,7 @@ abstract class BaseVtrlTrailer extends CActiveRecord
         return array(
             'vtrl_id' => Yii::t('TrucksModule.model', 'Vtrl'),
             'vtrl_ccmp_id' => Yii::t('TrucksModule.model', 'Vtrl Ccmp'),
+            'vtrl_vtrt_id' => Yii::t('TrucksModule.model', 'Vtrl Vtrt'),
             'vtrl_reg_nr' => Yii::t('TrucksModule.model', 'Vtrl Reg Nr'),
             'vtrl_year' => Yii::t('TrucksModule.model', 'Vtrl Year'),
             'vtrl_certificate_number' => Yii::t('TrucksModule.model', 'Vtrl Certificate Number'),
@@ -96,6 +100,7 @@ abstract class BaseVtrlTrailer extends CActiveRecord
 
         $criteria->compare('t.vtrl_id', $this->vtrl_id);
         $criteria->compare('t.vtrl_ccmp_id', $this->vtrl_ccmp_id);
+        $criteria->compare('t.vtrl_vtrt_id', $this->vtrl_vtrt_id);
         $criteria->compare('t.vtrl_reg_nr', $this->vtrl_reg_nr, true);
         $criteria->compare('t.vtrl_year', $this->vtrl_year);
         $criteria->compare('t.vtrl_certificate_number', $this->vtrl_certificate_number, true);

@@ -1,10 +1,10 @@
 <?php
 
 // auto-loading
-Yii::setPathOfAlias('VtrsTruckService', dirname(__FILE__));
-Yii::import('VtrsTruckService.*');
+Yii::setPathOfAlias('VtrtTrailerType', dirname(__FILE__));
+Yii::import('VtrtTrailerType.*');
 
-class VtrsTruckService extends BaseVtrsTruckService
+class VtrtTrailerType extends BaseVtrtTrailerType
 {
 
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
@@ -20,15 +20,8 @@ class VtrsTruckService extends BaseVtrsTruckService
 
     public function getItemLabel()
     {
-         return (string) $this->vtrsVtrc->vtrc_car_reg_nr . 
-            ' ' . $this->vtrsVsrv->vsrv_name
-            ;
+        return parent::getItemLabel();
     }
-    
-    public function getItemPositionLabel()
-    {
-            return $this->getItemLabel();
-    }       
 
     public function behaviors()
     {
@@ -58,19 +51,5 @@ class VtrsTruckService extends BaseVtrsTruckService
             'criteria' => $this->searchCriteria($criteria),
         ));
     }
-    
-    public function afterSave() {
-        
-        //registre transaction in dimensions        
-        if(!empty($this->vtrs_fixr_id)){
-            $vsrv = $this->vtrsVsrv;
-            $vtrc = $this->vtrsVtrc;
-
-
-            FddaDimData::registre($this->vtrs_fixr_id,$vsrv->vsrv_id, $vsrv->vsrv_name,$vtrc->vtrc_id, $vtrc->vtrc_car_reg_nr);
-        }
-        parent::afterSave();
-    }    
-    
 
 }
